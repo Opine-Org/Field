@@ -99,7 +99,6 @@ class Field {
 				$attributes['disabled'] = 'disabled';
 				Field::addClass($attributes, 'uneditable-input');
 			}
-			Field::addClass($attributes, 'grow');
 			$attributes['type'] = 'text';
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
 			Field::tag($field, 'input', $attributes);
@@ -117,7 +116,6 @@ class Field {
 	public static function textarea ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
-			Field::addClass($attributes, 'grow');
 			Field::tag($field, 'textarea', $attributes, false);
 		};
 	}
@@ -125,7 +123,6 @@ class Field {
 	public static function ckeditor ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
-			Field::addClass($attributes, 'grow');
 			Field::addClass($attributes, 'do_ckeditor');
 			if (isset($field['mini']) && $field['mini'] == true) {
 				Field::addClass($attributes, 'editor-mini');
@@ -159,9 +156,7 @@ class Field {
 
 	public static function select ($attributes=[]) {
 		return function ($field) use ($attributes) {
-			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
-			Field::addClass($attributes, 'grow');
-			
+			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';			
 			if (is_callable($field['options'])) {
 				$function = $field['options'];
 				$field['options'] = $function();
@@ -323,7 +318,6 @@ class Field {
     public static function selectOptionGroup ($attributes=[]) {
         return function ($field) use ($attributes) {
             $attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
-            Field::addClass($attributes, 'grow');
             if (is_callable($field['options'])) {
                 $function = $field['options'];
                 $field['options'] = $function();
@@ -665,8 +659,8 @@ class Field {
             $attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
             Field::tag($field, 'input', $attributes);
             $captcha = new Captcha\Captcha();
-			$captcha->setPublicKey(Config::captcha['publickey']);
-			$captcha->setPrivateKey(Config::captcha['privatekey']);
+			$captcha->setPublicKey(Config::captcha()['publickey']);
+			$captcha->setPrivateKey(Config::captcha()['privatekey']);
 			echo $captcha->html();
         };
     }
@@ -905,7 +899,6 @@ class Field {
 			if (isset($field['timepicker'])) {
 				Field::addClass($attributes, 'timepicker');
 			}
-			Field::addClass($attributes, 'grow');
 			//Field::addClass($attributes, 'search-query');
 			$attributes['type'] = 'text';
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
