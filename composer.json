@@ -2,6 +2,6 @@
     "name": "virtuecenter/field",
     "require": {
         "recaptcha/php5": "dev-master",
-        "virtuecenter/collection": "dev-master",
+        "virtuecenter/collection": "dev-master"
     }
 }
