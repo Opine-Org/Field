@@ -99,6 +99,9 @@ class Field {
 				$attributes['disabled'] = 'disabled';
 				Field::addClass($attributes, 'uneditable-input');
 			}
+			if (isset($field['data'])) {
+				$attributes['value'] = $field['data'];
+			}
 			$attributes['type'] = 'text';
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
 			Field::tag($field, 'input', $attributes);
@@ -116,7 +119,11 @@ class Field {
 	public static function textarea ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
-			Field::tag($field, 'textarea', $attributes, false);
+			$data = '';
+			if (isset($field['data'])) {
+				$data = $field['data'];
+			}
+			Field::tag($field, 'textarea', $attributes, false, $data);
 		};
 	}
 	
@@ -133,7 +140,11 @@ class Field {
 			if (isset($field['fullpage'])) {
 				$attributes['data-fullpage'] = 1;
 			}
-			Field::tag($field, 'textarea', $attributes, false);
+			$data = '';
+			if (isset($field['data'])) {
+				$data = $field['data'];
+			}
+			Field::tag($field, 'textarea', $attributes, false, $data);
 		};
 	}
 
