@@ -1,4 +1,8 @@
 <?php
+namespace Field;
+use Captcha\Captcha;
+use DB\Mongo;
+
 class Field {
 	public static $uploadCalled = false;
 	public static $autocompleteCalled = false;
@@ -70,12 +74,12 @@ class Field {
 					foreach ($options['documents'] as &$doc) {
 						if (!isset($doc['_id'])) {
 							$setIds = true;
-							$doc['_id'] = new MongoId();
+							$doc['_id'] = new \MongoId();
 						}
 					}
 					if ($setIds === true) {					
-						DB::collection($parentAdmin->storage['collection'])->update(
-							['_id' => DB::id($parentAdmin->activeRecord['_id'])],
+						Mongo::collection($parentAdmin->storage['collection'])->update(
+							['_id' => Mongo::id($parentAdmin->activeRecord['_id'])],
 							['$set' => [$field['name'] => $options['documents']]]
 						);
 					}
@@ -669,7 +673,7 @@ class Field {
             $attributes['type'] = 'hidden';
             $attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
             Field::tag($field, 'input', $attributes);
-            $captcha = new Captcha\Captcha();
+            $captcha = new Captcha();
 			$captcha->setPublicKey(Config::captcha()['publickey']);
 			$captcha->setPrivateKey(Config::captcha()['privatekey']);
 			echo $captcha->html();
