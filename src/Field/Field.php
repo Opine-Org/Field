@@ -1,13 +1,18 @@
 <?php
 namespace Field;
-use Captcha\Captcha;
-use DB\Mongo;
 
 class Field {
+	private $db;
+	private $captcha;
 	public static $uploadCalled = false;
 	public static $autocompleteCalled = false;
 	
-	public static function isAssociative (&$array) {
+	public function __construct ($db, $captcha) {
+		$this->db = $db;
+		$this->captcha = $captcha;
+	}
+
+	private static function isAssociative (&$array) {
 		if (!is_array($array)) {
 			return false;
 		}
@@ -17,7 +22,7 @@ class Field {
 		return true;
 	}
 
-	public static function arrayToCsv (array $array) {
+	private static function arrayToCsv (array $array) {
 		foreach ($array as &$value) {
 			if (substr_count($value, ',') > 0) {
 				$value = '"' . str_replace('"', '\"', $value) . '"';
@@ -26,7 +31,7 @@ class Field {
 		return htmlentities(implode(', ', $array));
 	}
 	
-	public static function forceAssociative (&$array) {
+	private static function forceAssociative (&$array) {
 		if (!is_array($array)) {
 			return [];
 		}
@@ -37,7 +42,7 @@ class Field {
 		return $newArray;
 	}
 
-	public static function tag (&$field, $tag, $attributes=[], $closed=true, $data='') {
+	public function tag (&$field, $tag, $attributes=[], $closed=true, $data='') {
 		if (isset($attributes['name']) && substr_count($attributes['name'], '-') > 0) {
 			$tmp = explode('[', substr($attributes['name'], 0, -1), 2);
 			$marker = $tmp[0];
@@ -62,7 +67,7 @@ class Field {
 		}
 	}
 
-	public static function admin ($attributes=[]) {
+	public function admin ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$parentAdmin = $field['__admin'];
 			$selector = '#' . $field['name'] . '-field';
@@ -97,7 +102,7 @@ class Field {
 		};
 	}
 	
-	public static function inputText ($attributes=[]) {
+	public function inputText ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			if (isset($field['uneditable'])) {
 				$attributes['disabled'] = 'disabled';
@@ -112,7 +117,7 @@ class Field {
 		};
 	}
 
-	public static function addClass (Array &$attributes, $class) {
+	public function addClass (Array &$attributes, $class) {
 		if (isset($attributes['class'])) {
 			$attributes['class'] .= ' ' . $class;
 		} else {
@@ -120,7 +125,7 @@ class Field {
 		}
 	}
 
-	public static function textarea ($attributes=[]) {
+	public function textarea ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
 			$data = '';
@@ -131,7 +136,7 @@ class Field {
 		};
 	}
 	
-	public static function ckeditor ($attributes=[]) {
+	public function ckeditor ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
 			Field::addClass($attributes, 'do_ckeditor');
@@ -152,7 +157,7 @@ class Field {
 		};
 	}
 
-	public static function nameFromId ($attributes=[]) {
+	public function nameFromId ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			if (!isset($field['key'])) {
 				$field['key'] = '_id';
@@ -169,7 +174,7 @@ class Field {
 		};
 	}
 
-	public static function select ($attributes=[]) {
+	public function select ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';			
 			if (is_callable($field['options'])) {
@@ -209,7 +214,7 @@ class Field {
 		};
 	}
 	
-	public static function multiSelectCheckbox ($attributes=[]) {
+	public function multiSelectCheckbox ($attributes=[]) {
 		//DOMView::includeFile('/vc/cl/js/jquery-ui-multiselect/jquery.multiselect.min.js', 5);
 		//DOMView::includeFile('/vc/cl/js/jquery-ui-multiselect/jquery.multiselect.css', 5);
 		return function ($field) use ($attributes) {
@@ -253,7 +258,7 @@ class Field {
 		};
 	}
 
-    public static function selectToMenu ($attributes=[]) {
+    public function selectToMenu ($attributes=[]) {
         return function ($field) use ($attributes) {
             $attributes['type'] = 'hidden';
             $attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
@@ -330,7 +335,7 @@ class Field {
         };
     }
 
-    public static function selectOptionGroup ($attributes=[]) {
+    public function selectOptionGroup ($attributes=[]) {
         return function ($field) use ($attributes) {
             $attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
             if (is_callable($field['options'])) {
@@ -363,7 +368,7 @@ class Field {
         };
     }
 
-	public static function selectToPill ($attributes=[]) {
+	public function selectToPill ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['value'] = [];
 			$attributes['key'] = [];
@@ -435,7 +440,7 @@ class Field {
 		};
 	}
 
-	public static function inputFileMulti ($attributes=[]) {
+	public function inputFileMulti ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['type'] = 'file';
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
@@ -541,7 +546,7 @@ class Field {
 		};
 	}
 	
-	public static function inputPassword ($attributes=[]) {
+	public function inputPassword ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['type'] = 'password';
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
@@ -549,7 +554,7 @@ class Field {
 		};
 	}
 
-	public static function inputFile ($attributes=[]) {
+	public function inputFile ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['type'] = 'file';
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
@@ -596,7 +601,7 @@ class Field {
 		};
 	}
 
-	public static function inputRadio ($attributes=[]) {
+	public function inputRadio ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
 			
@@ -626,7 +631,7 @@ class Field {
 		};
 	}
 	
-	public static function inputRadioBootstrap ($attributes=[]) {
+	public function inputRadioBootstrap ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
 			Field::label($field);
@@ -668,14 +673,13 @@ class Field {
 		};
 	}
 
-    public static function recaptcha ($attributes=[]) {
+    public function recaptcha ($attributes=[]) {
         return function ($field) use ($attributes) {
             $attributes['type'] = 'hidden';
             $attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
-            Field::tag($field, 'input', $attributes);
-            $captcha = new Captcha();
-			$captcha->setPublicKey(Config::captcha()['publickey']);
-			$captcha->setPrivateKey(Config::captcha()['privatekey']);
+            Field::tag($field, 'input', $attrib>utes);
+            $this->captcha->setPublicKey($this-Config::captcha()['publickey']);
+			$this->captcha->setPrivateKey(Config::captcha()['privatekey']);
 			echo $captcha->html();
         };
     }
