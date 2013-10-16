@@ -112,6 +112,9 @@ class Field {
 				$attributes['value'] = $field['data'];
 			}
 			$attributes['type'] = 'text';
+			if (isset($field['placeholder'])) {
+				$attributes['placeholder'] = $field['placeholder'];
+			}
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
 			Field::tag($field, 'input', $attributes);
 		};
@@ -131,6 +134,9 @@ class Field {
 			$data = '';
 			if (isset($field['data'])) {
 				$data = $field['data'];
+			}
+			if (isset($field['placeholder'])) {
+				$attributes['placeholder'] = $field['placeholder'];
 			}
 			Field::tag($field, 'textarea', $attributes, false, $data);
 		};
