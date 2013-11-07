@@ -4,15 +4,41 @@ namespace Field;
 class Field {
 	private $db;
 	private $captcha;
-	public static $uploadCalled = false;
-	public static $autocompleteCalled = false;
+	private $fieldContainer = [];
+	private $root;
 	
-	public function __construct ($db, $captcha) {
+	public function __construct ($root, $db, $captcha) {
 		$this->db = $db;
 		$this->captcha = $captcha;
+		$this->root = $root;
 	}
 
-	private static function isAssociative (&$array) {
+	public function render ($type, $metadata) {
+		if (!isset($this->fieldContainer[$type])) {
+			$path = $this->root . '/../fields/' . $type . '.php';
+			if (!file_exists($path)) {
+				$path = __DIR__ . '/../../available/' . $type . '.php';
+			}
+			if (!file_exists($path)) {
+				throw new \Exception('Unknown field type: ' . $type);
+			}
+			require_once $path;
+			$className = 'Field\\' . $type;
+			$instance = new $className($this, $this->db);
+			$instance->db = $this->db;
+			$instance->fieldService = $this;
+			$this->fieldContainer[$type] = $instance;
+		}
+		$instance = $this->fieldContainer[$type];
+		if (!isset($metadata['attributes'])) {
+			$metadata['attributes'] = [];
+		}
+		ob_start();
+		$instance->render($metadata);
+		return ob_get_clean();
+	}
+
+	public function isAssociative (&$array) {
 		if (!is_array($array)) {
 			return false;
 		}
@@ -22,7 +48,7 @@ class Field {
 		return true;
 	}
 
-	private static function arrayToCsv (array $array) {
+	public function arrayToCsv (array $array) {
 		foreach ($array as &$value) {
 			if (substr_count($value, ',') > 0) {
 				$value = '"' . str_replace('"', '\"', $value) . '"';
@@ -31,7 +57,7 @@ class Field {
 		return htmlentities(implode(', ', $array));
 	}
 	
-	private static function forceAssociative (&$array) {
+	public function forceAssociative (&$array) {
 		if (!is_array($array)) {
 			return [];
 		}
@@ -101,24 +127,6 @@ class Field {
 			echo '</div>';
 		};
 	}
-	
-	public function inputText ($attributes=[]) {
-		return function ($field) use ($attributes) {
-			if (isset($field['uneditable'])) {
-				$attributes['disabled'] = 'disabled';
-				Field::addClass($attributes, 'uneditable-input');
-			}
-			if (isset($field['data'])) {
-				$attributes['value'] = $field['data'];
-			}
-			$attributes['type'] = 'text';
-			if (isset($field['placeholder'])) {
-				$attributes['placeholder'] = $field['placeholder'];
-			}
-			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
-			Field::tag($field, 'input', $attributes);
-		};
-	}
 
 	public function addClass (Array &$attributes, $class) {
 		if (isset($attributes['class'])) {
@@ -130,36 +138,6 @@ class Field {
 
 	public function textarea ($attributes=[]) {
 		return function ($field) use ($attributes) {
-			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
-			$data = '';
-			if (isset($field['data'])) {
-				$data = $field['data'];
-			}
-			if (isset($field['placeholder'])) {
-				$attributes['placeholder'] = $field['placeholder'];
-			}
-			Field::tag($field, 'textarea', $attributes, false, $data);
-		};
-	}
-	
-	public function ckeditor ($attributes=[]) {
-		return function ($field) use ($attributes) {
-			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
-			Field::addClass($attributes, 'do_ckeditor');
-			if (isset($field['mini']) && $field['mini'] == true) {
-				Field::addClass($attributes, 'editor-mini');
-			}
-			if (isset($field['css'])) {
-				$attributes['data-css'] = $field['css'];
-			}
-			if (isset($field['fullpage'])) {
-				$attributes['data-fullpage'] = 1;
-			}
-			$data = '';
-			if (isset($field['data'])) {
-				$data = $field['data'];
-			}
-			Field::tag($field, 'textarea', $attributes, false, $data);
 		};
 	}
 
@@ -690,7 +668,7 @@ class Field {
         };
     }
 
-	public static function inputRadioButton ($attributes=[]) {
+	public function inputRadioButton ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
 
@@ -728,7 +706,7 @@ class Field {
 		};
 	}
 
-	public static function inputCodename ($attributes=[]) {
+	public function inputCodename ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['type'] = 'hidden';
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
@@ -750,7 +728,7 @@ class Field {
 		};
 	}
 	
-	public static function inputHidden ($attributes=[]) {
+	public function inputHidden ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['type'] = 'hidden';
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
@@ -758,7 +736,7 @@ class Field {
 		};
 	}
 
-    public static function inputCheckboxNaked ($attributes=[]) {
+    public function inputCheckboxNaked ($attributes=[]) {
         return function ($field) use ($attributes) {
             $attributes['type'] = 'checkbox';
             $attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
@@ -786,7 +764,7 @@ class Field {
         };
     }
 
-	public static function inputCheckbox ($attributes=[]) {
+	public function inputCheckbox ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['type'] = 'checkbox';
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
@@ -827,7 +805,7 @@ class Field {
 		};
 	}
 
-	public static function inputCheckboxes ($attributes=[]) {
+	public function inputCheckboxes ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['type'] = 'checkbox';
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
@@ -854,7 +832,7 @@ class Field {
 		};
 	}
 	
-	public static function inputCheckboxesList ($attributes=[]) {
+	public function inputCheckboxesList ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['type'] = 'checkbox';
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';	
@@ -884,7 +862,7 @@ class Field {
 		};
 	}
 	
-	public static function inputRadioList ($attributes=[]) {
+	public function inputRadioList ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['type'] = 'checkbox';
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
@@ -915,7 +893,7 @@ class Field {
 		};
 	}
 
-	public static function inputDatePicker ($attributes=[]) {
+	public function inputDatePicker ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['class'] = 'datepicker';
 			if (isset($field['datetimepicker'])) {
@@ -947,7 +925,7 @@ class Field {
 		};
 	}
 	
-	public static function inputToTags ($attributes=[]) {
+	public function inputToTags ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['type'] = 'text';
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
@@ -972,7 +950,7 @@ class Field {
 		};
 	}
 
-	public static function autocomplete ($attributes=[]) {
+	public function autocomplete ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
 			$attributes['class'] = 'custom-autocomplete';
@@ -1014,7 +992,7 @@ class Field {
 		};
 	}
 
-	public static function autocompleteSingle ($attributes=[]) {
+	public function autocompleteSingle ($attributes=[]) {
 		return function ($field) use ($attributes) {
 			$attributes['name'] = $field['marker'] . '[' . $field['name'] . ']';
 			$tempName = $field['marker'] . '[' . $field['name'] . '_temp]';
@@ -1064,7 +1042,7 @@ class Field {
 		};
 	}
 	
-	public static function filterTags ($attributes=[]) {
+	public function filterTags ($attributes=[]) {
 		//DOMView::includeFile('/vc/cl/js/admin/vc-filter-tags.js', 5);
 		//DOMView::includeFile('/vc/cl/js/admin/vc-filter-tags.css', 5);
 		return function ($field) use ($attributes) {
