@@ -1,4 +1,6 @@
 <?php
+namespace Field;
+
 class InputText {
 	public function render ($field) {
 		if (isset($field['uneditable'])) {
