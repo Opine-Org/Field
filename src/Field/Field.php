@@ -5,13 +5,15 @@ class Field {
 	private $db;
 	private $fieldContainer = [];
 	private $root;
+	private $manager;
 	
-	public function __construct ($root, $db) {
+	public function __construct ($root, $db, $manager) {
 		$this->db = $db;
 		$this->root = $root;
+		$this->manager = $manager;
 	}
 
-	public function render ($type, $metadata) {
+	public function render ($type, $metadata, $document) {
 		if (!isset($this->fieldContainer[$type])) {
 			$path = $this->root . '/../fields/' . $type . '.php';
 			if (!file_exists($path)) {
@@ -22,9 +24,11 @@ class Field {
 			}
 			require_once $path;
 			$className = 'Field\\' . $type;
-			$instance = new $className($this, $this->db);
+			$instance = new $className($this);
 			$instance->db = $this->db;
 			$instance->fieldService = $this;
+			$instance->manager = $this->manager;
+			$instance->document = $document;
 			$this->fieldContainer[$type] = $instance;
 		}
 		$instance = $this->fieldContainer[$type];

@@ -13,7 +13,7 @@ class FieldRoute {
 		}
 		mkdir($jsFolder);
 		foreach ($build['js'] as $file) {
-			$out .= file_get_contents($root . '/../vendor/virtuecenter/field/js/' . $file);
+			$out .= file_get_contents($root . '/../vendor/virtuecenter/field/js/' . $file) . "\n";
 		}
 		file_put_contents($buildFile, $out);
 		$this->copyFolder($srcDir, $jsFolder);
