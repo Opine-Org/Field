@@ -4,7 +4,7 @@ namespace Field;
 class Manager {
 	public function render ($field) {
 		if (!isset($this->document['dbURI'])) {
-			throw new \Exception('dbURI not set');
+			return '';
 		}
 		$buffer = '';
 		$url = '%dataAPI%/json-data/' . explode(':', $this->document['dbURI'])[0] . '/byEmbeddedField-' . $this->document['dbURI'] . ':' . $field['name'];
