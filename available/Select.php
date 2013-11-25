@@ -31,7 +31,11 @@ class Select {
 		}
 		if (is_array($field['options'])) {
 			foreach ($field['options'] as $key => $value) {
-				echo '<option value="', $key, '">', $value, '</option>';
+				$selected = '';
+				if (isset($field['data']) && $key == $field['data']) {
+					$selected = ' selected="selected" ';
+				}
+				echo '<option value="', $key, '" ', $selected, '>', $value, '</option>';
 			}
 		}
 		echo '</select>';

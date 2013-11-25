@@ -18,6 +18,22 @@ class FieldRoute {
 		file_put_contents($buildFile, $out);
 		$this->copyFolder($srcDir, $jsFolder);
 		unlink($jsFolder . '/build.php');
+
+		$srcDir = $root . '/../vendor/virtuecenter/field/css';
+		$build = require $srcDir . '/build.php';
+		$cssFolder = $root . '/css/fields';
+		$buildFile = $cssFolder . '/fieldBuild.css';
+		$out = '';
+		if (file_exists($cssFolder)) {
+			$this->unlinkFolder($cssFolder);
+		}
+		mkdir($cssFolder);
+		foreach ($build['css'] as $file) {
+			$out .= file_get_contents($root . '/../vendor/virtuecenter/field/css/' . $file) . "\n";
+		}
+		file_put_contents($buildFile, $out);
+		$this->copyFolder($srcDir, $cssFolder);
+		unlink($cssFolder . '/build.php');
 	}
 
 	private function copyFolder ($source, $dest) {
