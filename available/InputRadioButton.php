@@ -5,6 +5,8 @@ class InputRadioButton {
 	public function render ($field) {
 		$field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
 
+
+/*
 		if (is_callable($field['options'])) {
 			$function = $field['options'];
 			$field['options'] = $function();
@@ -36,5 +38,6 @@ class InputRadioButton {
 	        }
 			echo '</div>';
 		}
+*/
 	}
 }

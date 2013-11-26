@@ -13,6 +13,23 @@ class Field {
 		$this->manager = $manager;
 	}
 
+	public function defaultValue (&$field) {
+		$default = '';
+		if (isset($field['data']) && !empty($field['data'])) {
+			$default = $field['data'];
+		} else {
+			if (!empty($field['default'])) {
+				if (is_callable($field['default'])) {
+					$function = $field['default'];
+					$default = $function($field);
+				}	else {
+					$default = $field['default'];
+				}
+			}
+		}
+		return $default;
+	}
+
 	public function render ($type, $metadata, $document) {
 		if (!isset($this->fieldContainer[$type])) {
 			$path = $this->root . '/../fields/' . $type . '.php';

@@ -1,7 +1,13 @@
+/* InputFile */
+
 .ui.segment.fileinput-button {
   position: relative;
   overflow: hidden;
   padding: .750em;
+}
+
+.ui.segment.fileinput-button.drop {
+  border: 2px solid green;
 }
 
 .fileinput-button input {
@@ -27,11 +33,37 @@
 
 .fileinput-button > a {
   position: absolute;
-  top: 14px;
-  left: 14px;
+  top: 10px;
+  left: 10px;
 }
 
 .fileinput-button > span {
   font-size: .875em;
   margin-left: 40px;
+  color: #C9C9C9;
+  display: block;
+}
+
+.fileinput-button > div.trash {
+  z-index: 2;
+  position: absolute;
+  top: 12px;
+  right: 10px;
+  cursor: pointer;
+}
+
+/* Select */
+.field select {
+  width: 100%;
+    -moz-box-sizing: border-box;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.3125em;
+  box-shadow: 0 0 rgba(0, 0, 0, 0.3) inset;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 0.875em;
+  margin: 0;
+  outline: 0 none;
+  padding: 0.85em 1.2em;
+  transition: background-color 0.3s ease-out 0s, box-shadow 0.2s ease 0s, border-color 0.2s ease 0s;
 }

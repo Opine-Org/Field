@@ -4,13 +4,48 @@ $(function () {
 
 var fieldInitialize = function () {
     fileUpladInitialize();
+    sliderInitialize();
+    datePickerInitialize();
+};
+
+var datePickerInitialize = function () {
+    $('.datepicker').each(function () {
+        var uniqid = 'datepicker-' + Math.random().toString(36).substr(2, 7);
+        if (typeof($(this).attr('data-id')) != 'undefined') {
+            return;
+        }
+        $(this).attr('data-id', uniqid);
+        $(this).pikaday({
+            format: 'MM/DD/YYYY',
+        });
+    });
+};
+
+var sliderInitialize = function () {
+    $('.ui.checkbox.slider').each(function () {
+        var uniqid = 'slider-' + Math.random().toString(36).substr(2, 7);
+        if (typeof($(this).attr('data-id')) != 'undefined') {
+            return;
+        }
+        $(this).attr('data-id', uniqid);
+        $(this).checkbox({
+            onEnable: function () {
+                $(this).val('t');
+            },
+            onDisable: function () {
+                $(this).val('f');
+            }
+        });
+        if ($(this).find('input').val() == 't') {
+            $(this).checkbox('enable');
+        }
+    });
 };
 
 var fileUpladInitialize = function () {
     $(document).on({
         click: function (event) {
         event.stopPropagation();
-        console.log('Hi');
     }}, '.trash.button');
     $('.fileupload').each(function () {
         var container = $(this).parents('.field');
@@ -29,6 +64,18 @@ var fileUpladInitialize = function () {
                 $.each(data.result, function (key, value) {
                     $('<input type="hidden" name="' + manager + '[' + field + '][' + key + ']" value="' + value + '" />').appendTo(container);
                 });
+                var image = '';
+                var message = data.result.name;
+                var type = data.result.type.toLowerCase();
+                if (type.indexOf('jpeg') != -1 || type.indexOf('jpg') != -1 || type.indexOf('png') != -1 || type.indexOf('gif') != -1) {
+                    image = '<a href="' + data.result['url'] + '" target="_blank"><img style="z-index: 2" class="ui mini image" src="' + data.result['url'] + '" /></a>';
+                } else {
+                    image = '<a href="' + data.result['url'] + '" target="_blank"><i style="z-index: 2" class="file icon"></i></a>';
+                }
+                $(container).find('.fileinput-button > a').remove();
+                $(container).find('.fileinput-button').prepend(image);
+                $(container).find('.fileinput-button span').html(message);
+                $(container).find('.fileinput-button').removeClass('drop');
             },
             progressall: function (e, data) {
                 var progress = parseInt(data.loaded / data.total * 100, 10);
@@ -39,4 +86,39 @@ var fileUpladInitialize = function () {
             }
         });
     });
+
+    $(document).bind('dragover', function (e) {
+        var dropZone = $('.fileupload'),
+            timeout = window.dropZoneTimeout;
+        if (!timeout) {
+            var parent = $(dropZone).parent('.segment');
+            parent.addClass('drop');
+        } else {
+            clearTimeout(timeout);
+        }
+        var found = false,
+            node = e.target;
+        do {
+            if (node === dropZone[0]) {
+                found = true;
+                break;
+            }
+            node = node.parentNode;
+        } while (node != null);
+        if (found) {
+            dropZone.addClass('hover');
+        } else {
+            dropZone.removeClass('hover');
+        }
+        window.dropZoneTimeout = setTimeout(function () {
+            window.dropZoneTimeout = null;
+            dropZone.removeClass('in hover');
+        }, 100);
+    });
+
+    $('.fileupload').bind('dragleave', function (e) {
+        var parent = $(this).parent('.segment');
+        parent.removeClass('drop');
+    });
+
 };

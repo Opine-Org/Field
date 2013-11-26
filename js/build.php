@@ -10,6 +10,11 @@ return [
 		'jQuery-File-Upload/js/jquery.iframe-transport.js',
 		'jQuery-File-Upload/js/jquery.fileupload.js',
 
+		//date picker
+		'moment/min/moment.min.js',
+		'Pikaday/pikaday.js',
+		'Pikaday/plugins/pikaday.jquery.js',
+
 		//everything
 		'fields.js'
 	]
