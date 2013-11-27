@@ -15,6 +15,9 @@ return [
 		'Pikaday/pikaday.js',
 		'Pikaday/plugins/pikaday.jquery.js',
 
+		//selectize
+		'selectize.js/dist/js/standalone/selectize.min.js',
+
 		//everything
 		'fields.js'
 	]

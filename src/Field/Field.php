@@ -119,4 +119,18 @@ class Field {
 			$attributes['class'] = $class;
 		}
 	}
+
+	public static function csvToArray ($subject) {
+		if ($subject == '') {
+			return array();
+		}
+		if (substr_count($subject, ',') < 1) {
+			return array($subject);
+		}
+		$array = preg_split('/,(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))/', $subject, -1, PREG_SPLIT_DELIM_CAPTURE);
+		foreach ($array as &$value) {
+			$value = trim($value, "\" \t\n");
+		}
+		return $array;
+	}
 }

@@ -7,6 +7,29 @@ var fieldInitialize = function () {
     sliderInitialize();
     datePickerInitialize();
     tabularMenuInitialize();
+    selectizeInitialize();
+};
+
+var selectizeInitialize = function () {
+    $('.selectize-tags').each(function () {
+        var uniqid = 'tags-' + Math.random().toString(36).substr(2, 7);
+        if (typeof($(this).attr('data-id')) != 'undefined') {
+            return;
+        }
+        $(this).attr('data-id', uniqid);
+        $(this).selectize({
+            delimiter: ',',
+            persist: false,
+            createOnBlur: true,
+            create: function(input) {
+                return {
+                    value: input,
+                    text: input
+                }
+            },
+            maxItems: 100
+        });
+    });
 };
 
 var tabularMenuInitialize = function () {
