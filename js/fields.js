@@ -6,6 +6,21 @@ var fieldInitialize = function () {
     fileUpladInitialize();
     sliderInitialize();
     datePickerInitialize();
+    tabularMenuInitialize();
+};
+
+var tabularMenuInitialize = function () {
+    $('body').on({
+        click: function () {
+            var container = $(this).parent();
+            var activePrev = $(container).find('a.active').attr('data-tab');
+            var active = $(this).attr('data-tab');
+            $(container).find('a').removeClass('active');
+            $(this).addClass('active');
+            $('.ui.tab[data-tab="' + activePrev + '"]').removeClass('active');
+            $('.ui.tab[data-tab="' + active + '"]').addClass('active');
+        }
+    }, '.ui.tabular.menu > a');
 };
 
 var datePickerInitialize = function () {
