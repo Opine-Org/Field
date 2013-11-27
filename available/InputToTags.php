@@ -4,7 +4,7 @@ namespace Field;
 class InputToTags {
 	public function render ($field) {
 		$field['attributes']['class'] = 'selectize-tags';
-		$field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . '][]';
+		$field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
 		if (is_callable($field['options'])) {
 			$function = $field['options'];
 			$field['options'] = $function();
@@ -25,6 +25,12 @@ class InputToTags {
 		}
 		if (isset($field['multiple'])) {
 			$field['attributes']['multiple'] = 'multiple';
+			$field['attributes']['name'] .= '[]';
+		}
+		if (isset($field['controlled'])) {
+			$field['attributes']['data-controlled'] = 1;	
+		} else {
+			$field['attributes']['data-controlled'] = 0;
 		}
 		$this->fieldService->tag($field, 'select', $field['attributes'], 'open');
 		if (isset($field['nullable']) && ($field['nullable'] === true || is_string($field['nullable']) == true)) {
@@ -36,13 +42,12 @@ class InputToTags {
 		if (is_array($field['options'])) {
 			foreach ($field['options'] as $key => $value) {
 				$selected = '';
-				
 				if (isset($field['data'])) {
 					if (is_array($field['data'])) {
-						if (in_array($key, $field['data'])) {
+						if (in_array((string)$key, $field['data'])) {
 							$selected = ' selected ';
 						}
-					} elseif ($key == $field['data']) {
+					} elseif ((string)$key == $field['data']) {
 						$selected = ' selected ';
 					}
 				}
