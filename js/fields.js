@@ -47,10 +47,17 @@ var tabularMenuInitialize = function () {
             var active = $(this).attr('data-tab');
             $(container).find('a').removeClass('active');
             $(this).addClass('active');
-            $('.ui.tab[data-tab="' + activePrev + '"]').removeClass('active');
-            $('.ui.tab[data-tab="' + active + '"]').addClass('active');
+            $('.ui.tab[data-tab="' + activePrev + '"]').css({display: 'block', position: 'absolute', visibility: 'hidden'});
+            $('.ui.tab[data-tab="' + active + '"]').css({display: 'block', position: 'relative', visibility: 'visible'});
         }
     }, '.ui.tabular.menu > a');
+    $('.ui.tab').each(function () {
+        if ($(this).hasClass('active')) {
+            $(this).css({display: 'block', position: 'relative', visibility: 'visible'});
+        } else {
+            $(this).css({display: 'block', position: 'absolute', visibility: 'hidden'});
+        }
+    });
 };
 
 var datePickerInitialize = function () {
