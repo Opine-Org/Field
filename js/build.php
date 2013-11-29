@@ -1,6 +1,12 @@
 <?php
 return [
 	'js' => [
+		//slugg
+		'slugg/slugg.js',
+
+		//watch
+		'Watch.JS/src/watch.min.js',
+
 		//ckeditor
 		'ckeditor-custom.js',
 		'ckeditor/ckeditor.js',
