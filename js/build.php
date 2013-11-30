@@ -24,6 +24,9 @@ return [
 		//selectize
 		'selectize.js/dist/js/standalone/selectize.min.js',
 
+		//timeago
+		'jquery-timeago/jquery.timeago.js',
+
 		//everything
 		'fields.js'
 	]
