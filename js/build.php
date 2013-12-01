@@ -27,6 +27,9 @@ return [
 		//livestamp
 		'livestampjs/livestamp.min.js',
 
+		//html5sortable
+		'html5sortable/jquery.sortable.js',
+
 		//everything
 		'fields.js'
 	]
