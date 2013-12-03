@@ -17,23 +17,37 @@ var selectizeInitialize = function () {
         }
         $(this).attr('data-id', uniqid);
         var controlled = $(this).attr('data-controlled');
+        var multiple = $(this).attr('data-multiple');
         if (controlled == 1) {
             $(this).selectize({
                 maxItems: 100
             });
         } else {
-            $(this).selectize({
-                delimiter: ',',
-                persist: false,
-                createOnBlur: true,
-                create: function(input) {
-                    return {
-                        value: input,
-                        text: input
-                    }
-                },
-                maxItems: 100
-            });
+            if (multiple == 1) {
+                $(this).selectize({
+                    delimiter: ',',
+                    persist: false,
+                    createOnBlur: true,
+                    create: function(input) {
+                        return {
+                            value: input,
+                            text: input
+                        }
+                    },
+                    maxItems: 100
+                });
+            } else {
+                $(this).selectize({
+                    createOnBlur: true,
+                    create: function(input) {
+                        return {
+                            value: input,
+                            text: input
+                        }
+                    },
+                    maxItems: 1
+                });
+            }
         }
     });
 };

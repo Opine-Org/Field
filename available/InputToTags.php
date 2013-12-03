@@ -26,12 +26,16 @@ class InputToTags {
 		if (isset($field['multiple']) && $field['multiple'] === true) {
 			$field['attributes']['multiple'] = 'multiple';
 			$field['attributes']['name'] .= '[]';
+			$field['attributes']['data-multiple'] = 1;
+		} else {
+			$field['attributes']['data-multiple'] = 0;
 		}
 		if (isset($field['controlled']) && $field['controlled'] === true) {
 			$field['attributes']['data-controlled'] = 1;	
 		} else {
 			$field['attributes']['data-controlled'] = 0;
 		}
+
 		$this->fieldService->tag($field, 'select', $field['attributes'], 'open');
 		if (isset($field['nullable']) && ($field['nullable'] === true || is_string($field['nullable']) == true)) {
 			if ($field['nullable'] === true) {
