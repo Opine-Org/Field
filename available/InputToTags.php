@@ -23,7 +23,7 @@ class InputToTags {
 				}
 			}
 		}
-		if (isset($field['multiple'])) {
+		if (isset($field['multiple']) && $field['multiple'] === true) {
 			$field['attributes']['multiple'] = 'multiple';
 			$field['attributes']['name'] .= '[]';
 		}
