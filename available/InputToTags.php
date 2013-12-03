@@ -27,7 +27,7 @@ class InputToTags {
 			$field['attributes']['multiple'] = 'multiple';
 			$field['attributes']['name'] .= '[]';
 		}
-		if (isset($field['controlled'])) {
+		if (isset($field['controlled']) && $field['controlled'] === true) {
 			$field['attributes']['data-controlled'] = 1;	
 		} else {
 			$field['attributes']['data-controlled'] = 0;
