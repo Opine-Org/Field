@@ -1,20 +1,22 @@
 <?php
 return [
 	'js' => [
-		//slugg
-		'slugg/slugg.js',
-
-		//watch
-		'Watch.JS/src/watch.min.js',
-
-		//ckeditor
-		'ckeditor-custom.js',
-		'ckeditor/ckeditor.js',
-
 		//jquery file upload
 		'jQuery-File-Upload/js/vendor/jquery.ui.widget.js',
 		'jQuery-File-Upload/js/jquery.iframe-transport.js',
 		'jQuery-File-Upload/js/jquery.fileupload.js',
+
+		//watch
+		'Watch.JS/src/watch.js',
+
+		//ckeditor
+		//'ckeditor-custom.js',
+		//'ckeditor/ckeditor.js',
+		//'ckeditor-custom-config.js',
+		
+		//redactor
+		'yiiext/imperavi-redactor-widget/assets/redactor.js',
+		'yiiext/imperavi-redactor-widget/assets/plugins/fullscreen/fullscreen.js',
 
 		//date picker
 		'moment/min/moment.min.js',
@@ -22,15 +24,18 @@ return [
 		'Pikaday/plugins/pikaday.jquery.js',
 
 		//selectize
-		'selectize.js/dist/js/standalone/selectize.min.js',
+		'selectize.js/dist/js/standalone/selectize.js',
 		
 		//livestamp
-		'livestampjs/livestamp.min.js',
+		'livestampjs/livestamp.js',
 
 		//html5sortable
 		'html5sortable/jquery.sortable.js',
 
 		//everything
-		'fields.js'
+		'fields.js',
+
+		//slugg
+		'slugg/slugg.js'
 	]
 ];

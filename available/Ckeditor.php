@@ -4,7 +4,7 @@ namespace Field;
 class Ckeditor {
 	public function render ($field) {
 		$field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
-		$this->fieldService->addClass($field['attributes'], 'ckeditor');
+		$this->fieldService->addClass($field['attributes'], 'redactor');
 		if (isset($field['mini']) && $field['mini'] == true) {
 			$this->fieldService->addClass($field['attributes'], 'editor-mini');
 		}

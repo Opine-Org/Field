@@ -1,0 +1,113 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "a473f40c65f6808dfb215b7995a48761",
+    "packages": [
+        {
+            "name": "recaptcha/php5",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AlekseyKorzun/reCaptcha-PHP-5.git",
+                "reference": "7d6531a2e4a8f1bed8fcc6e1f112e902c8c1b60e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AlekseyKorzun/reCaptcha-PHP-5/zipball/7d6531a2e4a8f1bed8fcc6e1f112e902c8c1b60e",
+                "reference": "7d6531a2e4a8f1bed8fcc6e1f112e902c8c1b60e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Captcha": "Package"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Aleksey Korzun",
+                    "email": "al.ko@webfoundation.net",
+                    "homepage": "http://www.alekseykorzun.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A properly coded PHP 5 reCaptcha class that will allow you to interact with Google'sreCaptcha API.",
+            "homepage": "https://github.com/AlekseyKorzun/reCaptcha-PHP-5",
+            "keywords": [
+                "api",
+                "captcha",
+                "google",
+                "php",
+                "recaptcha"
+            ],
+            "time": "2013-10-31 14:42:07"
+        },
+        {
+            "name": "yiiext/imperavi-redactor-widget",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiiext/imperavi-redactor-widget.git",
+                "reference": "69094e274f730fb42d33de9c34bde8e9696370bd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiiext/imperavi-redactor-widget/zipball/69094e274f730fb42d33de9c34bde8e9696370bd",
+                "reference": "69094e274f730fb42d33de9c34bde8e9696370bd",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Makarov",
+                    "email": "sam@rmcreative.ru",
+                    "homepage": "http://rmcreative.ru/",
+                    "role": "Core framework development"
+                },
+                {
+                    "name": "Veaceslav Medvedev",
+                    "email": "slavcopost@gmail.com",
+                    "role": "Founder and project lead"
+                }
+            ],
+            "description": "Imperavi Redactor Widget for Yii",
+            "homepage": "https://github.com/yiiext/imperavi-redactor-widget",
+            "keywords": [
+                "impravi",
+                "wysiwyg",
+                "yii"
+            ],
+            "time": "2013-12-09 16:44:46"
+        }
+    ],
+    "packages-dev": [
+
+    ],
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "recaptcha/php5": 20,
+        "yiiext/imperavi-redactor-widget": 20
+    },
+    "platform": {
+        "php": ">=5.4.0"
+    },
+    "platform-dev": [
+
+    ]
+}

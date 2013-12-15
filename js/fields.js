@@ -7,6 +7,23 @@ var fieldInitialize = function () {
     sliderInitialize();
     datePickerInitialize();
     selectizeInitialize();
+    redactorInitialize();
+};
+
+var redactorInitialize = function () {
+    $('.redactor').each(function () {
+        var uniqid = 'redactor-' + Math.random().toString(36).substr(2, 7);
+        if (typeof($(this).attr('data-id')) != 'undefined') {
+            return;
+        }
+        $(this).attr('data-id', uniqid);
+        $(this).redactor({
+            plugins: ['fullscreen'],
+            imageUpload: '/Manager/upload/redactor/file',
+            linebreaks: true,
+            observeLinks: true
+        });
+    });
 };
 
 var selectizeInitialize = function () {
@@ -89,8 +106,45 @@ var sliderInitialize = function () {
 var fileUpladInitialize = function () {
     $(document).on({
         click: function (event) {
-        event.stopPropagation();
-    }}, '.trash.button');
+            event.stopPropagation();
+            var manager = $(this).parents('form').attr('data-manager');
+            var field = $(this).parents('.field').attr('data-field');
+            var uniqid = Math.random().toString(36).substr(2, 7);
+            var div = document.createElement("div");
+            $('.ui.modal.delete').remove();
+            $(div).addClass('ui small modal delete');
+            $(div).attr('id', 'Modal-' + uniqid);
+            div.innerHTML = '\
+                <i class="close icon"></i>\
+                <div class="header">Confirm Delete</div>\
+                <div class="delete content"><p>Are you sure you want to delete this image?</p></div>\
+                <div class="actions">\
+                    <div class="ui negative button">No</div>\
+                    <div class="ui positive right labeled icon confirmed manager-table imagedelete button">Yes<i class="checkmark icon"></i></div>\
+                </div>';
+            $('body').append(div);
+            $('.delete.modal').modal('show');
+            $('.delete.content').html('Are you sure you want to delete this image?');
+            $('.confirmed.imagedelete').attr('data-field', field);
+            $('.confirmed.imagedelete').attr('data-manager', manager);
+    }}, '.fileinput-button i.trash');
+
+    $(document).on({
+        click: function (event) {
+            event.stopPropagation();
+            var field = $(this).attr('data-field');
+            var manager = $(this).attr('data-manager');
+            var container = $('.field[data-field="' + field + '"]');
+            var image = '<a><i style="z-index: 2; opacity: .2" class="add sign box icon"></i></a>';
+            var message = '<span>Click to Upload, or Drag and Drop</span>';
+            $(container).find('.fileinput-button > a').remove();
+            $(container).find('.fileinput-button > span').remove();
+            $(container).find('.fileinput-button').prepend(message);
+            $(container).find('.fileinput-button').prepend(image);
+            $(container).find('input[type="hidden"]').remove();
+            $(container).append('<input type="hidden" name="' + manager + '[' + field + ']" value="" />');
+    }}, '.confirmed.imagedelete');
+
     $('.fileupload').each(function () {
         var container = $(this).parents('.field');
         var field = $(this).parents('.field').attr('data-field');
@@ -116,6 +170,7 @@ var fileUpladInitialize = function () {
                 } else {
                     image = '<a href="' + data.result['url'] + '" target="_blank"><i style="z-index: 2" class="file icon"></i></a>';
                 }
+                $(container).find('.fileinput-button').addClass('uploaded');
                 $(container).find('.fileinput-button > a').remove();
                 $(container).find('.fileinput-button').prepend(image);
                 $(container).find('.fileinput-button span').html(message);

@@ -7,6 +7,9 @@ return [
 		//selectize.js
 		'selectize.js/selectize.default.css',
 
+		//redactor
+		'redactor/style.css',
+
 		//everything
 		'fields.css'
 	]
