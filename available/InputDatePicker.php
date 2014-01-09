@@ -16,6 +16,6 @@ class InputDatePicker {
 		$field['attributes']['spellcheck'] = 'false';
 		$field['attributes']['value'] = $this->fieldService->defaultValue($field);
 		
-		echo $this->fieldService->tag($field, 'input', $field['attributes']);	
+		return $this->fieldService->tag($field, 'input', $field['attributes']);	
 	}
 }

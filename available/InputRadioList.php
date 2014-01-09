@@ -3,6 +3,7 @@ namespace Field;
 
 class InputRadioList {
 	public function render ($field) {
+		$buffer = '';
 		$field['attributes']['type'] = 'checkbox';
 		$field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
 
@@ -15,19 +16,20 @@ class InputRadioList {
 			foreach ($field['options'] as $optionKey => $option) {
 				if (is_array($option)) {
 					foreach ($option as $key => $value) {
-						echo '
+						$buffer .= '
 						<label class="radio">
-							<input type="radio" value="', $key, '" name="', $field['attributes']['name'], '" />', $value,
+							<input type="radio" value="' . $key . '" name="' . $field['attributes']['name'] . '" />' . $value .
 						'</label>';
 						break;
 					}
 				} else {
-					echo
+					$buffer .=
 					'<label class="radio">
-						<input type="radio" value="', $optionKey, '" name="', $field['attributes']['name'], '" />', $option,
+						<input type="radio" value="' . $optionKey . '" name="' . $field['attributes']['name'] . '" />' . $option .
 					'</label>';
 				}
 			}
 		}
+		return $buffer;
 	}
 }

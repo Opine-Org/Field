@@ -6,8 +6,8 @@ class InputFileMulti {
 		$field['attributes']['type'] = 'file';
 		$field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
 
-		echo '
-		<div id="', uniqid('file__'), '" class="fileupload-container-2" data-name="', $field['attributes']['name'], '">
+		return '
+		<div id="' . uniqid('file__') . '" class="fileupload-container-2" data-name="' . $field['attributes']['name'] . '">
 			<div class="row fileupload-buttonbar">
 				<div class="span7">
 					<span class="btn btn-success fileinput-button">

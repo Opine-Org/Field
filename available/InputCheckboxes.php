@@ -3,6 +3,7 @@ namespace Field;
 
 class InputCheckboxes {
 	public function render ($field) {
+		$buffer = '';
 		$field['attributes']['type'] = 'checkbox';
 		$field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
 
@@ -12,18 +13,19 @@ class InputCheckboxes {
 		}
 		
 		if (is_array($field['options'])) {
-			echo '<ul class="form-list-chk">';
+			$buffer .= '<ul class="form-list-chk">';
 			foreach ($field['options'] as $option) {
 				if (is_array($option)) {
 					foreach ($option as $key => $value) {
-						echo '<li><input type="checkbox" name="', $field['attributes']['name'], '[', $key, ']" value="on" /> <label class="form-lbl">', $value, '</label></li>';
+						$buffer .= '<li><input type="checkbox" name="' . $field['attributes']['name'] . '[' . $key . ']" value="on" /> <label class="form-lbl">' . $value . '</label></li>';
 						break;
 					}
 				} else {
-					echo '<li><input type="checkbox" name="', $field['attributes']['name'], '[', $option, ']" value="on" /> <label class="form-lbl">', $option, '</label></li>';
+					$buffer .= '<li><input type="checkbox" name="', $field['attributes']['name'], '[', $option, ']" value="on" /> <label class="form-lbl">', $option, '</label></li>';
 				}
 			}
-			echo '</ul>';
+			$buffer .= '</ul>';
 		}
+		return $buffer;
 	}
 }

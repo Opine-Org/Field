@@ -9,6 +9,6 @@ class Manager {
 		$buffer = '';
 		$url = '%dataAPI%/json-data/' . explode(':', $this->document['dbURI'])[0] . '/byEmbeddedField-' . $this->document['dbURI'] . ':' . $field['name'];
 		$this->manager->table($field['manager'], 'Manager/collections/embedded', $buffer, $url);
-		echo $buffer;
+		return $buffer;
 	}
 }

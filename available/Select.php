@@ -3,6 +3,7 @@ namespace Field;
 
 class Select {
 	public function render ($field) {
+		$buffer = '';
 		$field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
 		if (is_callable($field['options'])) {
 			$function = $field['options'];
@@ -22,12 +23,12 @@ class Select {
 				}
 			}
 		}
-		$this->fieldService->tag($field, 'select', $field['attributes'], 'open');
+		$buffer .= $this->fieldService->tag($field, 'select', $field['attributes'], 'open');
 		if (isset($field['nullable']) && ($field['nullable'] === true || is_string($field['nullable']) == true)) {
 			if ($field['nullable'] === true) {
 				$field['nullable'] = '';
 			}
-			echo '<option value="">', $field['nullable'], '</option>';
+			$buffer .= '<option value="">' . $field['nullable'] . '</option>';
 		}
 		if (is_array($field['options'])) {
 			foreach ($field['options'] as $key => $value) {
@@ -35,9 +36,10 @@ class Select {
 				if (isset($field['data']) && $key == $field['data']) {
 					$selected = ' selected="selected" ';
 				}
-				echo '<option value="', $key, '" ', $selected, '>', $value, '</option>';
+				$buffer .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option>';
 			}
 		}
-		echo '</select>';
+		$buffer .= '</select>';
+		return $buffer;
 	}
 }

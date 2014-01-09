@@ -24,6 +24,6 @@ class InputCheckboxNaked {
 	    if (!$this->fieldService->isAssociative($field['options'])) {
 	        $field['options'] = $this->fieldService->forceAssociative($field['options']);
 	    }
-	    $this->fieldService->tag($field, 'input', $field['attributes']);
+	    return $this->fieldService->tag($field, 'input', $field['attributes']);
 	}
 }

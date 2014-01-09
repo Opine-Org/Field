@@ -3,6 +3,7 @@ namespace Field;
 
 class InputCheckboxesList {
 	public function render ($field) {
+		$buffer = '';
 		$field['attributes']['type'] = 'checkbox';
 		$field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';	
 		if (is_callable($field['options'])) {
@@ -14,19 +15,20 @@ class InputCheckboxesList {
 			foreach ($field['options'] as $option) {
 				if (is_array($option)) {
 					foreach ($option as $key => $value) {
-						echo '
+						$buffer .= '
 							<label class="checkbox">
-								<input type="checkbox" name="', $field['attributes']['name'], '[', $key, ']', '" />', $value, 
+								<input type="checkbox" name="' . $field['attributes']['name'] . '[' . $key . ']" />' . $value . 
 							'</label>';							
 						break;
 					}
 				} else {
-					echo 
+					$buffer .= 
 						'<label class="checkbox">
-							<input type="checkbox" name="', $field['attributes']['name'], '[', $option, ']', '" value="on" />', $option,
+							<input type="checkbox" name="' . $field['attributes']['name'] . '[' . $option . ']' . '" value="on" />' . $option .
 						'</label>';
 				}
 			}
 		}
+		return $buffer;
 	}
 }

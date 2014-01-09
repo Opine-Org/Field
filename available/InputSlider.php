@@ -16,7 +16,7 @@ class InputSlider {
 				$default = $field['default'];
 			}
 		}
-		echo '
-			<div class="ui slider checkbox"><input type="checkbox" name="', $name, '" value="', $default, '" />', $label, '</div>';
+		return '
+			<div class="ui slider checkbox"><input type="checkbox" name="' . $name . '" value="' . $default . '" />' . $label . '</div>';
 	}
 }

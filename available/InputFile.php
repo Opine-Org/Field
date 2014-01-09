@@ -3,6 +3,7 @@ namespace Field;
 
 class InputFile {
 	public function render ($field) {
+		$buffer = '';
 		$field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
 		
 		$uploaded = false;
@@ -19,11 +20,11 @@ class InputFile {
 			}
 		}
 
-		echo '
-			<div class="ui segment fileinput-button ', ($uploaded === true ? 'uploaded' : ''), '">',
-				$image, '<span>', $message, '</span>
+		$buffer .= '
+			<div class="ui segment fileinput-button ' . ($uploaded === true ? 'uploaded' : '') . '">' .
+				$image . '<span>' . $message . '</span>
 				<div class="manager trash ui icon"><i class="trash icon"></i></div>
-  				<input class="fileupload" title="Click to Upload, or Drag and Drop" type="file" placeholder="Choose..." name="', $field['name'], '">
+  				<input class="fileupload" title="Click to Upload, or Drag and Drop" type="file" placeholder="Choose..." name="' . $field['name'] . '">
 			</div>
 		    <div class="progress">
 		        <div class="progress-bar progress-bar-success"></div>
@@ -31,8 +32,9 @@ class InputFile {
 
 		if ($uploaded) {
 			foreach ($field['data'] as $key => $value) {
-				echo '<input type="hidden" name="', $field['attributes']['name'], '[', $key, ']" value="', $value, '" />';
+				$buffer .= '<input type="hidden" name="' . $field['attributes']['name'] . '[' . $key . ']" value="' . $value . '" />';
 			}
 		}
+		return $buffer;
 	}
 }

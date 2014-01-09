@@ -18,6 +18,6 @@ class Ckeditor {
 		if (isset($field['data'])) {
 			$data = $field['data'];
 		}
-		$this->fieldService->tag($field, 'textarea', $field['attributes'], false, $data);
+		return $this->fieldService->tag($field, 'textarea', $field['attributes'], false, $data);
 	}
 }

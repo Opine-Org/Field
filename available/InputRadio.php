@@ -3,6 +3,7 @@ namespace Field;
 
 class InputRadio {
 	public function render ($field) {
+		$buffer = '';
 		$field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
 		
 		if (is_callable($field['options'])) {
@@ -15,18 +16,19 @@ class InputRadio {
 		}
 		
 		if (is_array($field['options'])) {
-			echo '<ul class="form-list-rdo">';
+			$buffer .= '<ul class="form-list-rdo">';
 			foreach ($field['options'] as $optionKey => $option) {
 				if (is_array($option)) {
 					foreach ($option as $key => $value) {
-						echo '<li><input type="radio" name="', $field['attributes']['name'], '" value="', $key, '" /> <label class="form-lbl">', $value, '</label></li>';
+						$buffer .= '<li><input type="radio" name="' . $field['attributes']['name'] . '" value="' . $key . '" /> <label class="form-lbl">' . $value . '</label></li>';
 						break;
 					}
 				} else {
-					echo '<li><input type="radio" name="', $field['attributes']['name'], '" value="', $optionKey, '" /> <label class="form-lbl">', $option, '</label></li>';
+					$buffer .= '<li><input type="radio" name="' . $field['attributes']['name'] . '" value="' . $optionKey . '" /> <label class="form-lbl">' . $option . '</label></li>';
 				}
 			}
-			echo '</ul>';
+			$buffer .= '</ul>';
 		}
+		return $buffer;
 	}
 }

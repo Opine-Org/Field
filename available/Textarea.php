@@ -11,6 +11,6 @@ class Textarea {
 		if (isset($field['placeholder'])) {
 			$field['attributes']['placeholder'] = $field['placeholder'];
 		}
-		$this->fieldService->tag($field, 'textarea', $field['attributes'], false, $data);
+		return $this->fieldService->tag($field, 'textarea', $field['attributes'], false, $data);
 	}
 }

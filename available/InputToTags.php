@@ -3,6 +3,7 @@ namespace Field;
 
 class InputToTags {
 	public function render ($field) {
+		$buffer = '';
 		$field['attributes']['class'] = 'selectize-tags';
 		$field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
 		if (is_callable($field['options'])) {
@@ -41,7 +42,7 @@ class InputToTags {
 			if ($field['nullable'] === true) {
 				$field['nullable'] = '';
 			}
-			echo '<option value="">', $field['nullable'], '</option>';
+			$buffer .= '<option value="">' . $field['nullable'] . '</option>';
 		}
 		if (is_array($field['options'])) {
 			foreach ($field['options'] as $key => $value) {
@@ -55,9 +56,10 @@ class InputToTags {
 						$selected = ' selected ';
 					}
 				}
-				echo '<option value="', $key, '" ', $selected, '>', $value, '</option>';
+				$buffer .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option>';
 			}
 		}
-		echo '</select>';
+		$buffer .= '</select>';
+		return $buffer;
 	}
 }

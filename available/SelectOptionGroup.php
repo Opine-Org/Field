@@ -3,6 +3,7 @@ namespace Field;
 
 class SelectOptionGroup {
 	public function render ($field) {
+        $buffer = '';
         $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
         if (is_callable($field['options'])) {
             $function = $field['options'];
@@ -14,22 +15,24 @@ class SelectOptionGroup {
             if ($field['nullable'] === true) {
                 $field['nullable'] = '';
             }
-            echo '<option value="">', $field['nullable'], '</option>';
+            $buffer .= '<option value="">', $field['nullable'], '</option>';
         }
         foreach ($field['options'] as $optionGroup) {
-            echo '
-                <optgroup label="', $optionGroup['label'], '">';
+            $buffer .= '
+                <optgroup label="' . $optionGroup['label'] . '">';
 
             if (isset($optionGroup['options']) && is_array($optionGroup['options']) && count($optionGroup['options']) > 0) {
                 foreach ($optionGroup['options'] as $optionKey => $optionValue) {
-                    echo '
-                        <option value="', $optionKey, '">', $optionValue, '</option>';
+                    $buffer .= '
+                        <option value="' . $optionKey . '">' . $optionValue . '</option>';
                 }
             }
-            echo '
+            $buffer .= '
                 </optgroup>';
         }
-        echo '
+        $buffer .= '
                 </select>';
+
+        return $buffer;
     }
 }

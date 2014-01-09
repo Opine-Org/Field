@@ -19,6 +19,6 @@ class InputCodename {
 		if (isset($field['mode'])) {
 			$field['attributes']['data-mode'] = $field['mode'];
 		}
-		$this->fieldService->tag($field, 'input', $field['attributes']);
+		return $this->fieldService->tag($field, 'input', $field['attributes']);
 	}
 }

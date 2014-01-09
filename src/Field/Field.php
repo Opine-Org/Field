@@ -52,9 +52,7 @@ class Field {
 		if (!isset($metadata['attributes'])) {
 			$metadata['attributes'] = [];
 		}
-		ob_start();
-		$instance->render($metadata);
-		return ob_get_clean();
+		return $instance->render($metadata);
 	}
 
 	public function isAssociative (&$array) {
@@ -99,17 +97,19 @@ class Field {
 			}
 		}
 		
-		echo '<', $tag, ' ';
+		$buffer = '';
+		$buffer .= '<' . $tag . ' ';
 		foreach ($attributes as $attribute => $value) {
-			echo ' ', $attribute, '="', $value, '" ';
+			$buffer .= ' ' . $attribute . '="' . $value . '" ';
 		}
 		if ($closed === true) {
-			echo ' />';
+			$buffer .= ' />';
 		} elseif ($closed === false) {
-			echo '>' . $data . '</' . $tag . '>';
+			$buffer .= '>' . $data . '</' . $tag . '>';
 		} else {
-			echo '>';
+			$buffer .= '>';
 		}
+		return $buffer;
 	}
 
 	public function addClass (Array &$attributes, $class) {

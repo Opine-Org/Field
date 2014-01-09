@@ -15,6 +15,6 @@ class InputText {
 			$field['attributes']['placeholder'] = $field['placeholder'];
 		}
 		$field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
-		$this->fieldService->tag($field, 'input', $field['attributes']);
+		return $this->fieldService->tag($field, 'input', $field['attributes']);
 	}
 }

@@ -46,6 +46,6 @@ class AutocompleteSingle {
 		}
 			
 		$stringName = '${' . $field['attributes']['id'] . '}';
-		echo '<div style="display: none" id="', $field['attributes']['id'], '-autocomplete-data">', $stringName, '</div>';
+		return '<div style="display: none" id="', $field['attributes']['id'], '-autocomplete-data">', $stringName, '</div>';
 	}
 }
