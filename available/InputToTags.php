@@ -37,7 +37,7 @@ class InputToTags {
 			$field['attributes']['data-controlled'] = 0;
 		}
 
-		$this->fieldService->tag($field, 'select', $field['attributes'], 'open');
+		$buffer .= $this->fieldService->tag($field, 'select', $field['attributes'], 'open');
 		if (isset($field['nullable']) && ($field['nullable'] === true || is_string($field['nullable']) == true)) {
 			if ($field['nullable'] === true) {
 				$field['nullable'] = '';
