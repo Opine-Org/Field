@@ -2,7 +2,7 @@
 namespace Field;
 
 class SelectOptionGroup {
-	public function render ($field) {
+    public function render ($field) {
         $buffer = '';
         $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
         if (is_callable($field['options'])) {

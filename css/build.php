@@ -1,16 +1,16 @@
 <?php
 return [
-	'css' => [
-		//date picker
-		'Pikaday/css/pikaday.css',
+    'css' => [
+        //date picker
+        'Pikaday/css/pikaday.css',
 
-		//selectize.js
-		'selectize.js/selectize.default.css',
+        //selectize.js
+        'selectize.js/selectize.default.css',
 
-		//redactor
-		'redactor/style.css',
+        //redactor
+        'redactor/style.css',
 
-		//everything
-		'fields.css'
-	]
+        //everything
+        'fields.css'
+    ]
 ];
