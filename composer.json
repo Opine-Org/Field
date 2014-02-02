@@ -2,7 +2,7 @@
     "name": "opine/field",
     "type": "library",
     "description": "Service providing a range of useful HTML form fields",
-    "keywords": [],
+    "keywords": ["Form"],
     "license": "MIT",
     "authors": [
         {
