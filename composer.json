@@ -1,14 +1,14 @@
 {
-    "name": "virtuecenter/field",
+    "name": "opine/field",
     "type": "library",
-    "description": "Generate html fields",
+    "description": "Service providing a range of useful HTML form fields",
     "keywords": [],
     "license": "MIT",
     "authors": [
         {
             "name": "Ryan Mahoney",
             "email": "ryan@virtuecenter.com",
-            "homepage": "http://www.virtuecenter.com",
+            "homepage": "http://opine-php.org",
             "role": "Developer"
         }
     ],
@@ -17,6 +17,6 @@
         "recaptcha/php5": "dev-master"
     },
     "autoload": {
-        "psr-0": {"Field": "src/"}
+        "psr-4": {"Opine\\": "src/"}
     }
 }
