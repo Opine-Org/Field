@@ -57,7 +57,7 @@ class Field {
         if (!isset($this->fieldContainer[$type])) {
             $path = $this->root . '/../fields/' . $type . '.php';
             if (!file_exists($path)) {
-                $path = __DIR__ . '/../../available/' . $type . '.php';
+                $path = __DIR__ . '/../available/' . $type . '.php';
             }
             if (!file_exists($path)) {
                 throw new \Exception('Unknown field type: ' . $type);
