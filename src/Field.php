@@ -29,6 +29,7 @@ class Field {
     private $fieldContainer = [];
     private $root;
     private $manager;
+    private $route;
     
     public function __construct ($root, $db, $manager) {
         $this->db = $db;
