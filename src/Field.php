@@ -55,15 +55,20 @@ class Field {
 
     public function render ($type, $metadata, $document) {
         if (!isset($this->fieldContainer[$type])) {
-            $path = $this->root . '/../fields/' . $type . '.php';
-            if (!file_exists($path)) {
-                $path = __DIR__ . '/../available/' . $type . '.php';
+            if (substr_count($type, '\\') > 0) {
+                $className = $type;
+                $path = $this->root . '/../bundles/' . ltrim(str_replace(['\\', '/Field/'], ['/', '/fields/'], $type), '/') . '.php';
+            } else {
+                $className = 'Field\\' . $type;
+                $path = $this->root . '/../fields/' . $type . '.php';
+                if (!file_exists($path)) {
+                    $path = __DIR__ . '/../available/' . $type . '.php';
+                }
             }
             if (!file_exists($path)) {
                 throw new \Exception('Unknown field type: ' . $type);
             }
             require_once $path;
-            $className = 'Field\\' . $type;
             $instance = new $className($this);
             $instance->db = $this->db;
             $instance->fieldService = $this;
