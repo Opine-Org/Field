@@ -30,10 +30,11 @@ class Field {
     private $root;
     private $manager;
     
-    public function __construct ($root, $db, $manager) {
-        $this->db = $db;
+    public function __construct ($root, $container) {
+        $this->db = $container->db;
         $this->root = $root;
-        $this->manager = $manager;
+        $this->manager = $container->manager;
+        $this->container = $container;
     }
 
     public function defaultValue (&$field) {
@@ -74,6 +75,11 @@ class Field {
             $instance->fieldService = $this;
             $instance->manager = $this->manager;
             $instance->document = $document;
+            if (isset($instance->services) && is_array($instance->services)) {
+                foreach ($instance->services as $service) {
+                    $instance->{$service} = $this->container->{$service};
+                }
+            }
             $this->fieldContainer[$type] = $instance;
         }
         $instance = $this->fieldContainer[$type];
