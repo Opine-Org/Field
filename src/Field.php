@@ -132,12 +132,12 @@ class Field {
         }
 
         $buffer = '';
-        $buffer .= '<' . $tag . ' ';
+        $buffer .= '<' . $tag;
         foreach ($attributes as $attribute => $value) {
             if (is_array($attribute) || is_array($value)) {
                 continue;
             }
-            $buffer .= ' ' . $attribute . '="' . $value . '" ';
+            $buffer .= ' ' . $attribute . '="' . $value . '"';
         }
         if ($closed === true) {
             $buffer .= ' />';
