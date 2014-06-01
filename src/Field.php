@@ -130,10 +130,13 @@ class Field {
                 $attributes['name'] .= '[' . $namePart . ']';
             }
         }
-        
+
         $buffer = '';
         $buffer .= '<' . $tag . ' ';
         foreach ($attributes as $attribute => $value) {
+            if (is_array($attribute) || is_array($value)) {
+                continue;
+            }
             $buffer .= ' ' . $attribute . '="' . $value . '" ';
         }
         if ($closed === true) {

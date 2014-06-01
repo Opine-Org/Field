@@ -15,12 +15,14 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "recaptcha\/php5": "dev-master"
+        "php": ">=5.4.0"
     },
     "autoload": {
         "psr-4": {
             "Opine\\": "src\/"
-        }
+        },
+        "classmap": [
+            "available"
+        ]
     }
 }
