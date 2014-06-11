@@ -58,19 +58,10 @@ class Field {
         if (!isset($this->fieldContainer[$type])) {
             if (substr_count($type, '\\') > 0) {
                 $className = $type;
-                $path = $this->root . '/../bundles/' . ltrim(str_replace(['\\', '/Field/'], ['/', '/fields/'], $type), '/') . '.php';
             } else {
                 $className = 'Field\\' . $type;
-                $path = $this->root . '/../fields/' . $type . '.php';
-                if (!file_exists($path)) {
-                    $path = __DIR__ . '/../available/' . $type . '.php';
-                }
             }
-            if (!file_exists($path)) {
-                throw new \Exception('Unknown field type: ' . $type);
-            }
-            require_once $path;
-            $instance = new $className($this);
+            $instance = new $className;
             $instance->db = $this->db;
             $instance->fieldService = $this;
             $instance->manager = $this->manager;
