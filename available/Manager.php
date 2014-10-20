@@ -2,13 +2,14 @@
 namespace Field;
 
 class Manager {
+	public $services = ['managerController'];
+
     public function render ($field) {
         if (!isset($this->document['dbURI'])) {
             return;
         }
-        $url = '%dataAPI%/json-data/' . explode(':', $this->document['dbURI'])[0] . '/byEmbeddedField-' . $this->document['dbURI'] . ':' . $field['name'];
         ob_start();
-        $this->manager->table($field['manager'], 'Manager/collections/embedded', $url);
+        $this->managerController->indexEmbedded($field['manager'], $field['name'], $this->document['dbURI']);
         return ob_get_clean();
     }
 }

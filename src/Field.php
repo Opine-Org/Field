@@ -28,12 +28,11 @@ class Field {
     private $db;
     private $fieldContainer = [];
     private $root;
-    private $manager;
+    private $managerController;
     
     public function __construct ($root, $container) {
         $this->db = $container->db;
         $this->root = $root;
-        $this->manager = $container->manager;
         $this->container = $container;
     }
 
@@ -64,7 +63,6 @@ class Field {
             $instance = new $className;
             $instance->db = $this->db;
             $instance->fieldService = $this;
-            $instance->manager = $this->manager;
             $instance->document = $document;
             if (isset($instance->services) && is_array($instance->services)) {
                 foreach ($instance->services as $service) {

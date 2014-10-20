@@ -23,12 +23,20 @@
  * THE SOFTWARE.
  */
 namespace Opine;
+use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
 
 class FieldRoute {
-    public function build ($root) {
-        $srcDir = $root . '/../vendor/opine/field/js';
+    private $root;
+
+    public function __construct ($root) {
+        $this->root = $root;
+    }
+
+    public function build () {
+        $srcDir = $this->root . '/../vendor/opine/field/js';
         $build = require $srcDir . '/build.php';
-        $jsFolder = $root . '/js/fields';
+        $jsFolder = $this->root . '/js/fields';
         $buildFile = $jsFolder . '/fieldBuild.js';
         $out = '';
         if (file_exists($jsFolder)) {
@@ -36,15 +44,15 @@ class FieldRoute {
         }
         mkdir($jsFolder);
         foreach ($build['js'] as $file) {
-            $out .= file_get_contents($root . '/../vendor/opine/field/js/' . $file) . "\n";
+            $out .= file_get_contents($this->root . '/../vendor/opine/field/js/' . $file) . "\n";
         }
         file_put_contents($buildFile, $out);
         $this->copyFolder($srcDir, $jsFolder);
         unlink($jsFolder . '/build.php');
 
-        $srcDir = $root . '/../vendor/opine/field/css';
+        $srcDir = $this->root . '/../vendor/opine/field/css';
         $build = require $srcDir . '/build.php';
-        $cssFolder = $root . '/css/fields';
+        $cssFolder = $this->root . '/css/fields';
         $buildFile = $cssFolder . '/fieldBuild.css';
         $out = '';
         if (file_exists($cssFolder)) {
@@ -52,7 +60,7 @@ class FieldRoute {
         }
         mkdir($cssFolder);
         foreach ($build['css'] as $file) {
-            $out .= file_get_contents($root . '/../vendor/opine/field/css/' . $file) . "\n";
+            $out .= file_get_contents($this->root . '/../vendor/opine/field/css/' . $file) . "\n";
         }
         file_put_contents($buildFile, $out);
         $this->copyFolder($srcDir, $cssFolder);
@@ -60,7 +68,7 @@ class FieldRoute {
     }
 
     private function copyFolder ($source, $dest) {
-        foreach ($iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($source, \RecursiveDirectoryIterator::SKIP_DOTS), \RecursiveIteratorIterator::SELF_FIRST) as $item) {
+        foreach ($iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST) as $item) {
             if ($item->isDir()) {
                 mkdir($dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
             } else {

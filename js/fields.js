@@ -149,18 +149,19 @@ var fileUpladInitialize = function () {
         var container = $(this).parents('.field');
         var field = $(this).parents('.field').attr('data-field');
         var manager = $(this).parents('form').attr('data-manager');
+        var managerClass = $(this).parents('form').attr('data-class');        
         var uniqid = 'fileupload-' + Math.random().toString(36).substr(2, 7);
         if (typeof($(this).attr('data-id')) != 'undefined') {
             return;
         }
         $(this).attr('data-id', uniqid);
         $('input[data-id="' + uniqid + '"]').fileupload({
-            url: '/Manager/upload/' + manager + '/' + field,
+            url: '/Manager/api/upload/' + manager + '/' + field,
             dataType: 'json',
             done: function (e, data) {
                 $(container).find('input[type="hidden"]').remove();
                 $.each(data.result, function (key, value) {
-                    $('<input type="hidden" name="' + manager + '[' + field + '][' + key + ']" value="' + value + '" />').appendTo(container);
+                    $('<input type="hidden" name="' + managerClass + '[' + field + '][' + key + ']" value="' + value + '" />').appendTo(container);
                 });
                 var image = '';
                 var message = data.result.name;
