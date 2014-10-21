@@ -55,12 +55,8 @@ class Field {
 
     public function render ($type, $metadata, $document) {
         if (!isset($this->fieldContainer[$type])) {
-            if (substr_count($type, '\\') > 0) {
-                $className = $type;
-            } else {
-                $className = 'Field\\' . $type;
-            }
-            $instance = new $className;
+            $className = $type;
+            $instance = new $className();
             $instance->db = $this->db;
             $instance->fieldService = $this;
             $instance->document = $document;

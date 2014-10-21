@@ -1,7 +1,7 @@
 <?php
 namespace Field;
 
-class Ckeditor {
+class Redactor {
     public function render ($field) {
         $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
         $this->fieldService->addClass($field['attributes'], 'redactor');
