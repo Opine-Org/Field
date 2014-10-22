@@ -19,7 +19,7 @@ var redactorInitialize = function () {
         $(this).attr('data-id', uniqid);
         $(this).redactor({
             plugins: ['fullscreen'],
-            imageUpload: '/Manager/upload/redactor/file',
+            imageUpload: '/Manager/api/upload/redactor/file',
             linebreaks: true,
             observeLinks: true
         });
