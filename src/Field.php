@@ -1,6 +1,6 @@
 <?php
 /**
- * Opine\Field
+ * Opine\Field\Service
  *
  * Copyright (c)2013, 2014 Ryan Mahoney, https://github.com/Opine-Org <ryan@virtuecenter.com>
  *
@@ -22,9 +22,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Opine;
+namespace Opine\Field;
 
-class Field {
+class Service {
     private $db;
     private $fieldContainer = [];
     private $root;

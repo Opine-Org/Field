@@ -22,11 +22,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Opine;
+namespace Opine\Field;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 
-class FieldRoute {
+class Model {
     private $root;
 
     public function __construct ($root) {

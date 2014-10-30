@@ -1,0 +1,7 @@
+services:
+    field:
+        class:     'Opine\Field\Service'
+        arguments: ['%root%', '@container']
+    fieldModel:
+        class:     'Opine\Field\Model'
+        arguments: ['%root%']
