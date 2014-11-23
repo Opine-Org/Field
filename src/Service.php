@@ -24,13 +24,15 @@
  */
 namespace Opine\Field;
 
+use Opine\Interfaces\Container as ContainerInterface;
+
 class Service {
     private $db;
     private $fieldContainer = [];
     private $root;
     private $managerController;
 
-    public function __construct ($root, $container) {
+    public function __construct ($root, ContainerInterface $container) {
         $this->db = $container->get('db');
         $this->root = $root;
         $this->container = $container;
