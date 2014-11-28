@@ -94,7 +94,7 @@ class Service {
         }
         return htmlentities(implode(', ', $array));
     }
-    
+
     public function forceAssociative (&$array) {
         if (!is_array($array)) {
             return [];
