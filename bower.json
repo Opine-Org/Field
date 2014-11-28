@@ -1,24 +1,24 @@
 {
-    "name": "opine-field",
-    "version": "1.0.1",
-    "homepage": "https://github.com/Opine-Org/Field",
-    "license": "MIT",
-    "main": [
-        "public/dist/require.js"
-    ],
-    "dependencies": {
-        "jquery": ">=2.1.1",
-        "pikaday": "1.2.0",
-        "watch": "*",
-        "html.sortable": "0.1.8",
-        "jquery-file-upload": "9.8.0",
-        "livestampjs": "1.1.2",
-        "moment": "2.8.4",
-        "selectize": "0.11.2",
-        "slugg": "bengourley/slugg#v0.1.2",
-        "console-polyfill": "~0.1.2",
-        "semantic": "1.0.0",
-        "jquery.ui": "1.11.2",
-        "imperavi-redactor-widget": "FriendsOfOpine/imperavi-redactor-widget#c59f0a7f178cebad238d8f8e7850d6a088aca60a"
-    }
+  "name": "opine-field",
+  "version": "1.0.1",
+  "homepage": "https://github.com/Opine-Org/Field",
+  "license": "MIT",
+  "main": [
+    "public/dist/require.js"
+  ],
+  "dependencies": {
+    "jquery": ">=2.1.1",
+    "pikaday": "1.2.0",
+    "watch": "*",
+    "html.sortable": "0.1.8",
+    "jquery-file-upload": "9.8.0",
+    "livestampjs": "1.1.2",
+    "moment": "2.8.4",
+    "selectize": "0.11.2",
+    "slugg": "bengourley/slugg#v0.1.2",
+    "console-polyfill": "~0.1.2",
+    "semantic": "1.0.0",
+    "jquery.ui": "1.11.2",
+    "imperavi-redactor-widget": "FriendsOfOpine/imperavi-redactor-widget#c59f0a7f178cebad238d8f8e7850d6a088aca60a"
+  }
 }
