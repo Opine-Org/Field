@@ -1,3 +1,4 @@
+
 if ($('.ui.checkbox.slider').length) {
     console.log("Loading semantic and slider");
     require.ensure([], function(require) {
@@ -28,9 +29,9 @@ if ($('.ui.checkbox.slider').length) {
     console.log("Loading file uploader");
     require.ensure([], function(require) {
         var $ = require('jquery');
-        require('../../bower_components/jquery-file-upload/js/jquery.iframe-transport.js');
-        require('../../bower_components/jquery-file-upload/js/jquery.fileupload.js');
-        require('../../css/conditional/fileupload.css');
+        require('../../../../bower_components/jquery-file-upload/js/jquery.iframe-transport.js');
+        require('../../../../bower_components/jquery-file-upload/js/jquery.fileupload.js');
+        require('../../public/css/fileupload.css');
 
         $(document).on({
             click: function (event) {
@@ -156,8 +157,8 @@ if ($('.ui.checkbox.slider').length) {
     console.log("Loading pikaday");
     require.ensure([], function(require) {
         var $ = require('jquery');
-        require('../../bower_components/pikaday/css/pikaday.css');
-        require('../../bower_components/pikaday/plugins/pikaday.jquery.js');
+        require('../../../../bower_components/pikaday/css/pikaday.css');
+        require('../../../../bower_components/pikaday/plugins/pikaday.jquery.js');
         $('.datepicker').each(function () {
             var uniqid = 'datepicker-' + Math.random().toString(36).substr(2, 7);
             if (typeof($(this).attr('data-id')) != 'undefined') {
@@ -175,9 +176,9 @@ if ($('.ui.checkbox.slider').length) {
     console.log("Loading redactor");
     require.ensure([], function(require) {
         var $ = require('jquery');
-        require('../../bower_components/imperavi-redactor-widget/assets/redactor.css');
-        require('../../bower_components/imperavi-redactor-widget/assets/redactor-font.eot');
-        require('../../bower_components/imperavi-redactor-widget/dist/redactor.js');
+        require('../../../../bower_components/imperavi-redactor-widget/assets/redactor.css');
+        require('../../../../bower_components/imperavi-redactor-widget/assets/redactor-font.eot');
+        require('../../../../bower_components/imperavi-redactor-widget/dist/redactor.js');
         $('.redactor').each(function () {
             var uniqid = 'redactor-' + Math.random().toString(36).substr(2, 7);
             if (typeof($(this).attr('data-id')) != 'undefined') {
