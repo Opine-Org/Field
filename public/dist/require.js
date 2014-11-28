@@ -1,2 +1,2 @@
-require('fields.js');
-require('fields.css');
+require('./fields.js');
+require('./fields.css');

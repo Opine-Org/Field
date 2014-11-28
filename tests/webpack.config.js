@@ -7,7 +7,6 @@ var resolveBowerPath = function(componentPath) {
 };
 
 module.exports = {
-    console: true,
     entry: "./entry.js",
     output: {
         path: __dirname + "/../public/build",
