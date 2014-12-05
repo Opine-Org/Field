@@ -14,7 +14,10 @@ if ($('.redactor').length) {
             $(this).redactor({
                 plugins: ['fullscreen', 'fontcolor', 'fontsize', 'table', 'textdirection', 'video'],
                 imageUpload: '/Manager/api/upload/redactor/file',
-                linkTooltip: true
+                linkTooltip: true,
+                toolbarFixed: true,
+                toolbarFixedTarget: 'textarea[data-id="' + uniqid + '"]',
+                minHeight: 144
             });
         });
     });
