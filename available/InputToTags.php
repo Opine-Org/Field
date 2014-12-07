@@ -2,6 +2,12 @@
 namespace Field;
 
 class InputToTags {
+    private $fieldService;
+
+    public function __construct ($fieldService) {
+        $this->fieldService = $fieldService;
+    }
+
     public function render ($field) {
         $buffer = '';
         $field['attributes']['class'] = 'selectize-tags';

@@ -2,6 +2,12 @@
 namespace Field;
 
 class InputCheckboxNaked {
+    private $fieldService;
+
+    public function __construct ($fieldService) {
+        $this->fieldService = $fieldService;
+    }
+
     public function render ($field) {
         $field['attributes']['type'] = 'checkbox';
         $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';

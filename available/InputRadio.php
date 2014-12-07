@@ -2,10 +2,16 @@
 namespace Field;
 
 class InputRadio {
+    private $fieldService;
+
+    public function __construct ($fieldService) {
+        $this->fieldService = $fieldService;
+    }
+
     public function render ($field) {
         $buffer = '';
         $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
-        
+
         if (is_callable($field['options'])) {
             $function = $field['options'];
             $field['options'] = $function();
@@ -14,7 +20,7 @@ class InputRadio {
         if (!$this->fieldService->isAssociative($field['options'])) {
             $field['options'] = $this->fieldService->forceAssociative($field['options']);
         }
-        
+
         if (is_array($field['options'])) {
             $buffer .= '<ul class="form-list-rdo">';
             foreach ($field['options'] as $optionKey => $option) {

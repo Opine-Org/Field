@@ -2,6 +2,12 @@
 namespace Field;
 
 class InputCheckbox {
+    private $fieldService;
+
+    public function __construct ($fieldService) {
+        $this->fieldService = $fieldService;
+    }
+
     public function render ($field) {
         $field['attributes']['type'] = 'checkbox';
         $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
@@ -25,14 +31,14 @@ class InputCheckbox {
                 }
             }
         }
-        
+
         if (!$this->fieldService->isAssociative($field['options'])) {
             $field['options'] = $this->fieldService->forceAssociative($field['options']);
         }
-        
+
         return '
             <ul class="form-list-chk">
-                <li>' . 
+                <li>' .
         $this->fieldService->tag($field, 'input', $field['attributes']) . '
                     <label class="form-lbl">', $label, '</label>
                 </li>

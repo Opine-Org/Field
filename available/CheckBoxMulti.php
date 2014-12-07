@@ -2,6 +2,12 @@
 namespace Field;
 
 class CheckBoxMulti {
+    private $fieldService;
+
+    public function __construct ($fieldService) {
+        $this->fieldService = $fieldService;
+    }
+
     public function render ($field) {
         $buffer = '';
         $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . '][]';
@@ -11,7 +17,7 @@ class CheckBoxMulti {
             $function = $field['options'];
             $field['options'] = $function();
         };
-        
+
         $this->fieldService->tag($field, 'select', $field['attributes'], 'open');
         if (isset($field['nullable']) && ($field['nullable'] === true || is_string($field['nullable']) == true)) {
             if ($field['nullable'] === true) {
@@ -19,7 +25,7 @@ class CheckBoxMulti {
             }
             $buffer .= '<option value="">' . $field['nullable'] . '</option>';
         }
-        
+
         if (is_array($field['options'])) {
             foreach ($field['options'] as $key => $value) {
                 if (!is_array($value)) {
@@ -38,7 +44,7 @@ class CheckBoxMulti {
         $buffer .= '</select>
         <script type="text/javascript">
             $(function () {
-                 $(".multiSelectCheckbox").multiselect(); 
+                 $(".multiSelectCheckbox").multiselect();
             });
         </script>';
         return $buffer;

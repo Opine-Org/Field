@@ -30,12 +30,10 @@ class Service {
     private $db;
     private $fieldContainer = [];
     private $root;
-    private $managerController;
 
-    public function __construct ($root, ContainerInterface $container) {
-        $this->db = $container->get('db');
+    public function __construct ($root, $db) {
+        $this->db = $db;
         $this->root = $root;
-        $this->container = $container;
     }
 
     public function defaultValue (&$field) {
@@ -53,27 +51,6 @@ class Service {
             }
         }
         return $default;
-    }
-
-    public function render ($type, $metadata, $document) {
-        if (!isset($this->fieldContainer[$type])) {
-            $className = $type;
-            $instance = new $className();
-            $instance->db = $this->db;
-            $instance->fieldService = $this;
-            $instance->document = $document;
-            if (isset($instance->services) && is_array($instance->services)) {
-                foreach ($instance->services as $service) {
-                    $instance->{$service} = $this->container->{$service};
-                }
-            }
-            $this->fieldContainer[$type] = $instance;
-        }
-        $instance = $this->fieldContainer[$type];
-        if (!isset($metadata['attributes'])) {
-            $metadata['attributes'] = [];
-        }
-        return $instance->render($metadata);
     }
 
     public function isAssociative (&$array) {

@@ -2,6 +2,12 @@
 namespace Field;
 
 class InputDatePicker {
+    private $fieldService;
+
+    public function __construct ($fieldService) {
+        $this->fieldService = $fieldService;
+    }
+
     public function render ($field) {
         $field['attributes']['class'] = 'datepicker';
         if (isset($field['datetimepicker'])) {
@@ -15,7 +21,6 @@ class InputDatePicker {
         $field['attributes']['autocomplete'] = 'off';
         $field['attributes']['spellcheck'] = 'false';
         $field['attributes']['value'] = $this->fieldService->defaultValue($field);
-        
-        return $this->fieldService->tag($field, 'input', $field['attributes']);    
+        return $this->fieldService->tag($field, 'input', $field['attributes']);
     }
 }

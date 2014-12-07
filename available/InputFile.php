@@ -2,10 +2,16 @@
 namespace Field;
 
 class InputFile {
+    private $fieldService;
+
+    public function __construct ($fieldService) {
+        $this->fieldService = $fieldService;
+    }
+
     public function render ($field) {
         $buffer = '';
         $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
-        
+
         $uploaded = false;
         $image = '<a><i style="z-index: 2; opacity: .2" class="add sign box icon"></i></a>';
         $message = 'Click to Upload, or Drag and Drop';

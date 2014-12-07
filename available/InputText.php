@@ -2,6 +2,12 @@
 namespace Field;
 
 class InputText {
+    private $fieldService;
+
+    public function __construct ($fieldService) {
+        $this->fieldService = $fieldService;
+    }
+
     public function render ($field) {
         if (isset($field['uneditable'])) {
             $field['attributes']['disabled'] = 'disabled';

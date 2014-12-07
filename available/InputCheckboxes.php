@@ -2,6 +2,12 @@
 namespace Field;
 
 class InputCheckboxes {
+    private $fieldService;
+
+    public function __construct ($fieldService) {
+        $this->fieldService = $fieldService;
+    }
+
     public function render ($field) {
         $buffer = '';
         $field['attributes']['type'] = 'checkbox';
@@ -11,7 +17,7 @@ class InputCheckboxes {
             $function = $field['options'];
             $field['options'] = $function();
         }
-        
+
         if (is_array($field['options'])) {
             $buffer .= '<ul class="form-list-chk">';
             foreach ($field['options'] as $option) {

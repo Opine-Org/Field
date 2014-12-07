@@ -2,6 +2,12 @@
 namespace Field;
 
 class InputSlider {
+    private $fieldService;
+
+    public function __construct ($fieldService) {
+        $this->fieldService = $fieldService;
+    }
+
     public function render ($field) {
         $name = $field['marker'] . '[' . $field['name'] . ']';
         $label = '';

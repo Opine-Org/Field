@@ -2,6 +2,12 @@
 namespace Field;
 
 class Autocomplete {
+    private $fieldService;
+
+    public function __construct ($fieldService) {
+        $this->fieldService = $fieldService;
+    }
+
     public function render ($field) {
         $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
         $field['attributes']['class'] = 'custom-autocomplete';
@@ -15,7 +21,7 @@ class Autocomplete {
         }
         $field['attributes']['id'] = 'id__' . uniqid();
         if (isset($field['data']) && is_array($field['data'])) {
-            $field['attributes']['value'] = [];                
+            $field['attributes']['value'] = [];
             foreach ($field['data'] as $key) {
                 if (isset($field['options'][$key])) {
                     $field['attributes']['value'][] = $field['options'][$key];
@@ -24,7 +30,7 @@ class Autocomplete {
 
             $field['attributes']['value'] = $this->fieldService->arrayToCsv($field['attributes']['value']);
         }
-        $this->fieldService->tag($field, 'input', $field['attributes']);        
+        $this->fieldService->tag($field, 'input', $field['attributes']);
         if (is_array($field['options'])) {
             $tmpJson = [];
             foreach ($field['options'] as $optionKey => $optionValue) {
@@ -32,6 +38,6 @@ class Autocomplete {
             }
         }
         $stringName = '${' . $field['attributes']['id'] . '}';
-        return '<div style="display: none" id="', $field['attributes']['id'], '-autocomplete-data">', $stringName, '</div>';    
+        return '<div style="display: none" id="', $field['attributes']['id'], '-autocomplete-data">', $stringName, '</div>';
     }
 }

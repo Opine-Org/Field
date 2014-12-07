@@ -2,6 +2,14 @@
 namespace Field;
 
 class Manager {
+    private $fieldService;
+    private $managerController;
+
+    public function __construct ($fieldService, $managerController) {
+        $this->fieldService = $fieldService;
+        $this->managerController = $managerController;
+    }
+
 	public $services = ['managerController'];
 
     public function render ($field) {

@@ -1,0 +1,70 @@
+services:
+    fieldAutocomplete:
+        class:     Field\Autocomplete
+        arguments: [@field]
+    fieldAutocompleteSingle:
+        class:     Field\AutocompleteSingle
+        arguments: [@field]
+    fieldCheckBoxMulti:
+        class:     Field\CheckBoxMulti
+        arguments: [@field]
+    fieldInputCheckboxesList:
+        class:     Field\InputCheckboxesList
+        arguments: [@field]
+    fieldInputCheckboxes:
+        class:     Field\InputCheckboxes
+        arguments: [@field]
+    fieldInputCheckboxNaked:
+        class:     Field\InputCheckboxNaked
+        arguments: [@field]
+    fieldInputCheckbox:
+        class:     Field\InputCheckbox
+        arguments: [@field]
+    fieldInputCodename:
+        class:     Field\InputCodename
+        arguments: [@field]
+    fieldInputDatePicker:
+        class:     Field\InputDatePicker
+        arguments: [@field]
+    fieldInputFileMulti:
+        class:     Field\InputFileMulti
+        arguments: [@field]
+    fieldInputFile:
+        class:     Field\InputFile
+        arguments: [@field]
+    fieldInputHidden:
+        class:     Field\InputHidden
+        arguments: [@field]
+    fieldInputPassword:
+        class:     Field\InputPassword
+        arguments: [@field]
+    fieldInputRadioList:
+        class:     Field\InputRadioList
+        arguments: [@field]
+    fieldInputRadio:
+        class:     Field\InputRadio
+        arguments: [@field]
+    fieldInputSlider:
+        class:     Field\InputSlider
+        arguments: [@field]
+    fieldInputText:
+        class:     Field\InputText
+        arguments: [@field]
+    fieldInputToTags:
+        class:     Field\InputToTags
+        arguments: [@field]
+    fieldManager:
+        class:     Field\Manager
+        arguments: [@field, @managerController]
+    fieldRedactor:
+        class:     Field\Redactor
+        arguments: [@field]
+    fieldSelectOptionGroup:
+        class:     Field\SelectOptionGroup
+        arguments: [@field]
+    fieldSelect:
+        class:     Field\Select
+        arguments: [@field]
+    fieldTextarea:
+        class:     Field\Textarea
+        arguments: [@field]

@@ -1,7 +1,10 @@
+imports:
+    - config/fields-container.yml
+
 services:
     field:
         class:     'Opine\Field\Service'
-        arguments: ['%root%', '@container']
+        arguments: ['%root%', '@db']
     fieldModel:
         class:     'Opine\Field\Model'
         arguments: ['%root%']
