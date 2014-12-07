@@ -1,5 +1,5 @@
 imports:
-    - config/fields-container.yml
+    - fields-container.yml
 
 services:
     field:
