@@ -8,7 +8,7 @@ class CheckBoxMulti {
         $this->fieldService = $fieldService;
     }
 
-    public function render ($field) {
+    public function render ($field, $document, $formObject) {
         $buffer = '';
         $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . '][]';
         $field['attributes']['multiple'] = 'multiple';

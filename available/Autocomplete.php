@@ -8,7 +8,7 @@ class Autocomplete {
         $this->fieldService = $fieldService;
     }
 
-    public function render ($field) {
+    public function render ($field, $document, $formObject) {
         $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
         $field['attributes']['class'] = 'custom-autocomplete';
         $field['attributes']['data-single'] = 0;

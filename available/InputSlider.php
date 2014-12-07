@@ -8,7 +8,7 @@ class InputSlider {
         $this->fieldService = $fieldService;
     }
 
-    public function render ($field) {
+    public function render ($field, $document, $formObject) {
         $name = $field['marker'] . '[' . $field['name'] . ']';
         $label = '';
         if (!empty($field['label'])) {

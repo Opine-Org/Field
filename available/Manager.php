@@ -12,12 +12,12 @@ class Manager {
 
 	public $services = ['managerController'];
 
-    public function render ($field) {
-        if (!isset($this->document['dbURI'])) {
+    public function render (render ($field, $document, $formObject)) {
+        if (!isset($document['dbURI'])) {
             return;
         }
         ob_start();
-        $this->managerController->indexEmbedded($field['manager'], $field['name'], $this->document['dbURI']);
+        $this->managerController->indexEmbedded($field['manager'], $field['name'], $document['dbURI']);
         return ob_get_clean();
     }
 }

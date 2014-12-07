@@ -8,7 +8,7 @@ class InputDatePicker {
         $this->fieldService = $fieldService;
     }
 
-    public function render ($field) {
+    public function render ($field, $document, $formObject) {
         $field['attributes']['class'] = 'datepicker';
         if (isset($field['datetimepicker'])) {
             $this->fieldService->addClass($field['attributes'], 'datetimepicker');

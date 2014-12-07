@@ -8,7 +8,7 @@ class Redactor {
         $this->fieldService = $fieldService;
     }
 
-    public function render ($field) {
+    public function render ($field, $document, $formObject) {
         $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
         $this->fieldService->addClass($field['attributes'], 'redactor');
         if (isset($field['mini']) && $field['mini'] == true) {

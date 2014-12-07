@@ -8,7 +8,7 @@ class InputText {
         $this->fieldService = $fieldService;
     }
 
-    public function render ($field) {
+    public function render ($field, $document, $formObject) {
         if (isset($field['uneditable'])) {
             $field['attributes']['disabled'] = 'disabled';
             $this->fieldService->addClass($field['attributes'], 'uneditable-input');

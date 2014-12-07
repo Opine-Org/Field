@@ -8,7 +8,7 @@ class InputFileMulti {
         $this->fieldService = $fieldService;
     }
 
-    public function render ($field) {
+    public function render ($field, $document, $formObject) {
         $field['attributes']['type'] = 'file';
         $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
 
