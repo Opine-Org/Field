@@ -30,10 +30,12 @@ class Service {
     private $db;
     private $fieldContainer = [];
     private $root;
+    private $route;
 
-    public function __construct ($root, $db) {
-        $this->db = $db;
+    public function __construct ($root, $db, $route) {
         $this->root = $root;
+        $this->db = $db;
+        $this->route = $route;
     }
 
     public function defaultValue (&$field) {
@@ -51,6 +53,46 @@ class Service {
             }
         }
         return $default;
+    }
+
+    public function optionsGet ($field, $options, $formObject, $formPost) {
+        $criteria = [];
+        if (isset($options['criteria'])) {
+            $criteria = $options['criteria'];
+        }
+        $sort = [];
+        if (isset($options['sort'])) {
+            $criteria = $options['sort'];
+        }
+        $groupKey = '_id';
+        if (isset($options['groupKey'])) {
+            $key = $options['groupKey'];
+        }
+        $groupLabel = 'title';
+        if (isset($options['groupLabel'])) {
+            $groupLabel = $options['groupLabel'];
+        }
+        switch ($options['type']) {
+            case 'array':
+                return $options['value'];
+
+            case 'url':
+                return file_get_contents($options['url']);
+
+            case 'query':
+                return $this->db->fetchAllGrouped(
+                    $this->db->collection($options['collection'])->
+                        find($criteria)->
+                        sort($sort),
+                    $groupKey,
+                    $groupLabel);
+
+            case 'queryDistinct':
+                return $this->db->distinct($options['collection'], $options['field']);
+
+            case 'service':
+                return $this->route->serviceMethod($options['service'], $field, $options, $formObject, $formPost);
+        }
     }
 
     public function isAssociative (&$array) {

@@ -3,8 +3,8 @@ imports:
 
 services:
     field:
-        class:     'Opine\Field\Service'
-        arguments: ['%root%', '@db']
+        class:     Opine\Field\Service
+        arguments: [%root%, @db, @route]
     fieldModel:
-        class:     'Opine\Field\Model'
-        arguments: ['%root%']
+        class:     Opine\Field\Model
+        arguments: [%root%]
