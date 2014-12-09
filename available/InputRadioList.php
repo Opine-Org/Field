@@ -12,11 +12,7 @@ class InputRadioList {
         $buffer = '';
         $field['attributes']['type'] = 'checkbox';
         $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
-
-        if (is_callable($field['options'])) {
-            $function = $field['options'];
-            $field['options'] = $function();
-        }
+        $field['options'] = $this->fieldService->options($field, $document, $formObject);
 
         if (is_array($field['options'])) {
             foreach ($field['options'] as $optionKey => $option) {

@@ -11,13 +11,7 @@ class Select {
     public function render ($field, $document, $formObject) {
         $buffer = '';
         $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
-        if (is_callable($field['options'])) {
-            $function = $field['options'];
-            $field['options'] = $function();
-        };
-        if (!$this->fieldService->isAssociative($field['options'])) {
-            $field['options'] = $this->fieldService->forceAssociative($field['options']);
-        }
+        $field['options'] = $this->fieldService->options($field, $document, $formObject);
         if (isset($field['readonly']) && $field['readonly'] == true) {
             $field['attributes']['class'] .= ' input-xlarge uneditable-input ';
             if (isset($field['data']) && !empty($field['data'])) {

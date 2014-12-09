@@ -13,11 +13,7 @@ class CheckBoxMulti {
         $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . '][]';
         $field['attributes']['multiple'] = 'multiple';
         $field['attributes']['class'] = (empty($field['attributes']['class'])) ? 'multiSelectCheckbox' : $field['attributes']['class'] . ' multiSelectCheckbox'; 
-        if (is_callable($field['options'])) {
-            $function = $field['options'];
-            $field['options'] = $function();
-        };
-
+        $field['options'] = $this->fieldService->options($field, $document, $formObject);
         $this->fieldService->tag($field, 'select', $field['attributes'], 'open');
         if (isset($field['nullable']) && ($field['nullable'] === true || is_string($field['nullable']) == true)) {
             if ($field['nullable'] === true) {

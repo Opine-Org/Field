@@ -1,6 +1,8 @@
 <?php
 namespace Field;
 
+use MongoDate;
+
 class InputDatePicker {
     private $fieldService;
 
@@ -22,5 +24,26 @@ class InputDatePicker {
         $field['attributes']['spellcheck'] = 'false';
         $field['attributes']['value'] = $this->fieldService->defaultValue($field);
         return $this->fieldService->tag($field, 'input', $field['attributes']);
+    }
+
+    public function stringToObject ($data) {
+        if (empty($data)) {
+            return NULL;
+        }
+        return new MongoDate(strtotime($data));
+    }
+
+    public function objectToString ($data) {
+        if (is_object($data) && get_class($data) === 'MongoDate') {
+            return date('m/d/Y', $data->sec);
+        }
+        if (is_string($data)) {
+            return $data;
+        }
+        return NULL;
+    }
+
+    public function nowString () {
+        return date('m/d/Y');
     }
 }

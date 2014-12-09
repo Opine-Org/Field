@@ -12,13 +12,7 @@ class InputToTags {
         $buffer = '';
         $field['attributes']['class'] = 'selectize-tags';
         $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
-        if (is_callable($field['options'])) {
-            $function = $field['options'];
-            $field['options'] = $function();
-        };
-        if (!$this->fieldService->isAssociative($field['options'])) {
-            $field['options'] = $this->fieldService->forceAssociative($field['options']);
-        }
+        $field['options'] = $this->fieldService->options($field, $document, $formObject);
         if (isset($field['readonly']) && $field['readonly'] == true) {
             $field['attributes']['class'] .= ' input-xlarge uneditable-input ';
             if (isset($field['data']) && !empty($field['data'])) {
@@ -67,5 +61,12 @@ class InputToTags {
         }
         $buffer .= '</select>';
         return $buffer;
+    }
+
+    public function csvToArray ($data) {
+        if (is_array($data)) {
+            return $data;
+        }
+        return $this->fieldService->csvToArray($data);
     }
 }

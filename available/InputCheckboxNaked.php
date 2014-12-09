@@ -11,6 +11,7 @@ class InputCheckboxNaked {
     public function render ($field, $document, $formObject) {
         $field['attributes']['type'] = 'checkbox';
         $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
+        $field['options'] = $this->fieldService->options($field, $document, $formObject);
         if (isset($field['options']) && is_array($field['options'])) {
             foreach ($field['options'] as $option) {
                 if (is_array($option)) {
@@ -26,9 +27,6 @@ class InputCheckboxNaked {
                     $field['attributes']['value'] = $option;
                 }
             }
-        }
-        if (!$this->fieldService->isAssociative($field['options'])) {
-            $field['options'] = $this->fieldService->forceAssociative($field['options']);
         }
         return $this->fieldService->tag($field, 'input', $field['attributes']);
     }

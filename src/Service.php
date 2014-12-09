@@ -44,10 +44,9 @@ class Service {
             $default = $field['data'];
         } else {
             if (!empty($field['default'])) {
-                if (is_callable($field['default'])) {
-                    $function = $field['default'];
-                    $default = $function($field);
-                }   else {
+                if (substr_count($field['default'], '@') == 1 && substr_count($field['default'], '\@') == 0) {
+                    $default = $this->route->serviceMethod($field['default'], $field);
+                } else {
                     $default = $field['default'];
                 }
             }
@@ -55,44 +54,61 @@ class Service {
         return $default;
     }
 
-    public function optionsGet ($field, $options, $formObject, $formPost) {
+    public function options ($field, $document, $formObject) {
+        if (!isset($field['options'])) {
+            return [];
+        }
+        if (is_string($field['options']) && substr_count($field['options'], '@') == 1) {
+            return $this->route->serviceMethod($field['options'], $field, $document, $formObject);
+        }
+        if (!is_array($field['options'])) {
+            return [];
+        }
         $criteria = [];
-        if (isset($options['criteria'])) {
-            $criteria = $options['criteria'];
+        if (isset($field['options']['criteria'])) {
+            $criteria = $field['options']['criteria'];
         }
         $sort = [];
-        if (isset($options['sort'])) {
-            $criteria = $options['sort'];
+        if (isset($field['options']['sort'])) {
+            $criteria = $field['options']['sort'];
         }
-        $groupKey = '_id';
-        if (isset($options['groupKey'])) {
-            $key = $options['groupKey'];
+        $key = '_id';
+        if (isset($field['options']['key'])) {
+            $key = $field['options']['key'];
         }
-        $groupLabel = 'title';
-        if (isset($options['groupLabel'])) {
-            $groupLabel = $options['groupLabel'];
+        $label = 'title';
+        if (isset($field['options']['label'])) {
+            $label = $field['options']['label'];
         }
-        switch ($options['type']) {
+        switch ($field['options']['type']) {
             case 'array':
-                return $options['value'];
+                $options = $field['options']['value'];
+                break;
 
             case 'url':
-                return file_get_contents($options['url']);
+                $options = file_get_contents($field['options']['url']);
+                break;
 
             case 'query':
-                return $this->db->fetchAllGrouped(
-                    $this->db->collection($options['collection'])->
+                $options = $this->db->fetchAllGrouped(
+                    $this->db->collection($field['options']['collection'])->
                         find($criteria)->
                         sort($sort),
-                    $groupKey,
-                    $groupLabel);
+                    $key,
+                    $label);
+                break;
 
             case 'queryDistinct':
-                return $this->db->distinct($options['collection'], $options['field']);
+                $options = $this->db->distinct($field['options']['collection'], $field['options']['field']);
+                break;
 
-            case 'service':
-                return $this->route->serviceMethod($options['service'], $field, $options, $formObject, $formPost);
+            default:
+                return [];
         }
+        if (!$this->isAssociative($options)) {
+            return $this->forceAssociative($options);
+        }
+        return $options;
     }
 
     public function isAssociative (&$array) {

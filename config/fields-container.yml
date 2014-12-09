@@ -1,56 +1,50 @@
 services:
-    fieldAutocomplete:
-        class:     Field\Autocomplete
-        arguments: [@field]
-    fieldAutocompleteSingle:
-        class:     Field\AutocompleteSingle
-        arguments: [@field]
     fieldCheckBoxMulti:
         class:     Field\CheckBoxMulti
         arguments: [@field]
-    fieldInputCheckboxesList:
+    fieldCheckboxesList:
         class:     Field\InputCheckboxesList
         arguments: [@field]
-    fieldInputCheckboxes:
+    fieldCheckboxes:
         class:     Field\InputCheckboxes
         arguments: [@field]
-    fieldInputCheckboxNaked:
+    fieldCheckboxNaked:
         class:     Field\InputCheckboxNaked
         arguments: [@field]
-    fieldInputCheckbox:
+    fieldCheckbox:
         class:     Field\InputCheckbox
         arguments: [@field]
-    fieldInputCodename:
+    fieldCodename:
         class:     Field\InputCodename
         arguments: [@field]
-    fieldInputDatePicker:
+    fieldDatePicker:
         class:     Field\InputDatePicker
         arguments: [@field]
-    fieldInputFileMulti:
+    fieldFileMulti:
         class:     Field\InputFileMulti
         arguments: [@field]
-    fieldInputFile:
+    fieldFile:
         class:     Field\InputFile
         arguments: [@field]
-    fieldInputHidden:
+    fieldHidden:
         class:     Field\InputHidden
         arguments: [@field]
-    fieldInputPassword:
+    fieldPassword:
         class:     Field\InputPassword
         arguments: [@field]
-    fieldInputRadioList:
+    fieldRadioList:
         class:     Field\InputRadioList
         arguments: [@field]
-    fieldInputRadio:
+    fieldRadio:
         class:     Field\InputRadio
         arguments: [@field]
-    fieldInputSlider:
+    fieldSlider:
         class:     Field\InputSlider
         arguments: [@field]
-    fieldInputText:
+    fieldText:
         class:     Field\InputText
         arguments: [@field]
-    fieldInputToTags:
+    fieldTags:
         class:     Field\InputToTags
         arguments: [@field]
     fieldManager:
@@ -58,9 +52,6 @@ services:
         arguments: [@field, @managerController]
     fieldRedactor:
         class:     Field\Redactor
-        arguments: [@field]
-    fieldSelectOptionGroup:
-        class:     Field\SelectOptionGroup
         arguments: [@field]
     fieldSelect:
         class:     Field\Select
