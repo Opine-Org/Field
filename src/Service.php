@@ -70,7 +70,7 @@ class Service {
         }
         $sort = [];
         if (isset($field['options']['sort'])) {
-            $criteria = $field['options']['sort'];
+            $sort = $field['options']['sort'];
         }
         $key = '_id';
         if (isset($field['options']['key'])) {
@@ -100,6 +100,13 @@ class Service {
 
             case 'queryDistinct':
                 $options = $this->db->distinct($field['options']['collection'], $field['options']['field']);
+                if (empty($options)) {
+                    $options = [];
+                }
+                if (isset($field['options']['value'])) {
+                    $options = array_unique(array_merge($field['options']['value'], $options));
+                }
+                sort($options);
                 break;
 
             default:

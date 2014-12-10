@@ -10,11 +10,9 @@ class Manager {
         $this->managerController = $managerController;
     }
 
-	public $services = ['managerController'];
-
-    public function render (render ($field, $document, $formObject)) {
+    public function render ($field, $document, $formObject) {
         if (!isset($document['dbURI'])) {
-            return;
+            return '';
         }
         ob_start();
         $this->managerController->indexEmbedded($field['manager'], $field['name'], $document['dbURI']);
