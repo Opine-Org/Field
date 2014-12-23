@@ -37,7 +37,7 @@ class InputCheckbox {
             <ul class="form-list-chk">
                 <li>' .
         $this->fieldService->tag($field, 'input', $field['attributes']) . '
-                    <label class="form-lbl">', $label, '</label>
+                    <label class="form-lbl">' . $label . '</label>
                 </li>
             </ul>';
     }

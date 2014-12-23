@@ -23,7 +23,7 @@ class InputCheckboxes {
                         break;
                     }
                 } else {
-                    $buffer .= '<li><input type="checkbox" name="', $field['attributes']['name'], '[', $option, ']" value="on" /> <label class="form-lbl">', $option, '</label></li>';
+                    $buffer .= '<li><input type="checkbox" name="' . $field['attributes']['name'] . '[' . $option . ']" value="on" /> <label class="form-lbl">' . $option . '</label></li>';
                 }
             }
             $buffer .= '</ul>';
