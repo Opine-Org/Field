@@ -1,15 +1,18 @@
 <?php
 namespace Field;
 
-class Redactor {
+class Redactor
+{
     private $fieldService;
 
-    public function __construct ($fieldService) {
+    public function __construct($fieldService)
+    {
         $this->fieldService = $fieldService;
     }
 
-    public function render ($field, $document, $formObject) {
-        $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
+    public function render($field, $document, $formObject)
+    {
+        $field['attributes']['name'] = $field['marker'].'['.$field['name'].']';
         $this->fieldService->addClass($field['attributes'], 'redactor');
         if (isset($field['mini']) && $field['mini'] == true) {
             $this->fieldService->addClass($field['attributes'], 'editor-mini');
@@ -24,6 +27,7 @@ class Redactor {
         if (isset($field['data'])) {
             $data = $field['data'];
         }
+
         return $this->fieldService->tag($field, 'textarea', $field['attributes'], false, $data);
     }
 }

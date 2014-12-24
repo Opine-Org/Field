@@ -1,16 +1,19 @@
 <?php
 namespace Field;
 
-class InputCheckboxNaked {
+class InputCheckboxNaked
+{
     private $fieldService;
 
-    public function __construct ($fieldService) {
+    public function __construct($fieldService)
+    {
         $this->fieldService = $fieldService;
     }
 
-    public function render ($field, $document, $formObject) {
+    public function render($field, $document, $formObject)
+    {
         $field['attributes']['type'] = 'checkbox';
-        $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
+        $field['attributes']['name'] = $field['marker'].'['.$field['name'].']';
         $field['options'] = $this->fieldService->options($field, $document, $formObject);
         if (isset($field['options']) && is_array($field['options'])) {
             foreach ($field['options'] as $option) {
@@ -28,6 +31,7 @@ class InputCheckboxNaked {
                 }
             }
         }
+
         return $this->fieldService->tag($field, 'input', $field['attributes']);
     }
 }

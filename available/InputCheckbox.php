@@ -1,16 +1,19 @@
 <?php
 namespace Field;
 
-class InputCheckbox {
+class InputCheckbox
+{
     private $fieldService;
 
-    public function __construct ($fieldService) {
+    public function __construct($fieldService)
+    {
         $this->fieldService = $fieldService;
     }
 
-    public function render ($field, $document, $formObject) {
+    public function render($field, $document, $formObject)
+    {
         $field['attributes']['type'] = 'checkbox';
-        $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
+        $field['attributes']['name'] = $field['marker'].'['.$field['name'].']';
         $field['options'] = $this->fieldService->options($field, $document, $formObject);
         $label = '';
         if (isset($field['options']) && is_array($field['options'])) {
@@ -35,9 +38,9 @@ class InputCheckbox {
 
         return '
             <ul class="form-list-chk">
-                <li>' .
-        $this->fieldService->tag($field, 'input', $field['attributes']) . '
-                    <label class="form-lbl">' . $label . '</label>
+                <li>'.
+        $this->fieldService->tag($field, 'input', $field['attributes']).'
+                    <label class="form-lbl">'.$label.'</label>
                 </li>
             </ul>';
     }

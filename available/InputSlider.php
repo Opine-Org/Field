@@ -1,18 +1,21 @@
 <?php
 namespace Field;
 
-class InputSlider {
+class InputSlider
+{
     private $fieldService;
 
-    public function __construct ($fieldService) {
+    public function __construct($fieldService)
+    {
         $this->fieldService = $fieldService;
     }
 
-    public function render ($field, $document, $formObject) {
-        $name = $field['marker'] . '[' . $field['name'] . ']';
+    public function render($field, $document, $formObject)
+    {
+        $name = $field['marker'].'['.$field['name'].']';
         $label = '';
         if (!empty($field['label'])) {
-            $label = '<label>' . $field['label'] . '</label>';
+            $label = '<label>'.$field['label'].'</label>';
         }
         $default = '';
         if (isset($field['data']) && !empty($field['data'])) {
@@ -22,7 +25,8 @@ class InputSlider {
                 $default = $field['default'];
             }
         }
+
         return '
-            <div class="ui slider checkbox"><input type="checkbox" name="' . $name . '" value="' . $default . '" />' . $label . '</div>';
+            <div class="ui slider checkbox"><input type="checkbox" name="'.$name.'" value="'.$default.'" />'.$label.'</div>';
     }
 }

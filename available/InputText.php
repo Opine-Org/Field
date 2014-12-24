@@ -1,14 +1,17 @@
 <?php
 namespace Field;
 
-class InputText {
+class InputText
+{
     private $fieldService;
 
-    public function __construct ($fieldService) {
+    public function __construct($fieldService)
+    {
         $this->fieldService = $fieldService;
     }
 
-    public function render ($field, $document, $formObject) {
+    public function render($field, $document, $formObject)
+    {
         if (isset($field['uneditable'])) {
             $field['attributes']['disabled'] = 'disabled';
             $this->fieldService->addClass($field['attributes'], 'uneditable-input');
@@ -20,7 +23,8 @@ class InputText {
         if (isset($field['placeholder'])) {
             $field['attributes']['placeholder'] = $field['placeholder'];
         }
-        $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
+        $field['attributes']['name'] = $field['marker'].'['.$field['name'].']';
+
         return $this->fieldService->tag($field, 'input', $field['attributes']);
     }
 }

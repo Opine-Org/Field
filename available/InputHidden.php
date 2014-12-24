@@ -1,19 +1,23 @@
 <?php
 namespace Field;
 
-class InputHidden {
+class InputHidden
+{
     private $fieldService;
 
-    public function __construct ($fieldService) {
+    public function __construct($fieldService)
+    {
         $this->fieldService = $fieldService;
     }
 
-    public function render ($field, $document, $formObject) {
+    public function render($field, $document, $formObject)
+    {
         $field['attributes']['type'] = 'hidden';
-        $field['attributes']['name'] = $field['marker'] . '[' . $field['name'] . ']';
+        $field['attributes']['name'] = $field['marker'].'['.$field['name'].']';
         if (isset($field['data'])) {
-	        $field['attributes']['value'] = $field['data'];
-	    }
+            $field['attributes']['value'] = $field['data'];
+        }
+
         return $this->fieldService->tag($field, 'input', $field['attributes']);
     }
 }

@@ -23,70 +23,78 @@
  * THE SOFTWARE.
  */
 namespace Opine\Field;
+
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 
-class Model {
+class Model
+{
     private $root;
 
-    public function __construct ($root) {
+    public function __construct($root)
+    {
         $this->root = $root;
     }
 
-    public function build () {
-        $srcDir = $this->root . '/../vendor/opine/field/js';
-        $build = require $srcDir . '/build.php';
-        $jsFolder = $this->root . '/js/fields';
-        $buildFile = $jsFolder . '/fieldBuild.js';
+    public function build()
+    {
+        $srcDir = $this->root.'/../vendor/opine/field/js';
+        $build = require $srcDir.'/build.php';
+        $jsFolder = $this->root.'/js/fields';
+        $buildFile = $jsFolder.'/fieldBuild.js';
         $out = '';
         if (file_exists($jsFolder)) {
             $this->unlinkFolder($jsFolder);
         }
         mkdir($jsFolder);
         foreach ($build['js'] as $file) {
-            $out .= file_get_contents($this->root . '/../vendor/opine/field/js/' . $file) . "\n";
+            $out .= file_get_contents($this->root.'/../vendor/opine/field/js/'.$file)."\n";
         }
         file_put_contents($buildFile, $out);
         $this->copyFolder($srcDir, $jsFolder);
-        unlink($jsFolder . '/build.php');
+        unlink($jsFolder.'/build.php');
 
-        $srcDir = $this->root . '/../vendor/opine/field/css';
-        $build = require $srcDir . '/build.php';
-        $cssFolder = $this->root . '/css/fields';
-        $buildFile = $cssFolder . '/fieldBuild.css';
+        $srcDir = $this->root.'/../vendor/opine/field/css';
+        $build = require $srcDir.'/build.php';
+        $cssFolder = $this->root.'/css/fields';
+        $buildFile = $cssFolder.'/fieldBuild.css';
         $out = '';
         if (file_exists($cssFolder)) {
             $this->unlinkFolder($cssFolder);
         }
         mkdir($cssFolder);
         foreach ($build['css'] as $file) {
-            $out .= file_get_contents($this->root . '/../vendor/opine/field/css/' . $file) . "\n";
+            $out .= file_get_contents($this->root.'/../vendor/opine/field/css/'.$file)."\n";
         }
         file_put_contents($buildFile, $out);
         $this->copyFolder($srcDir, $cssFolder);
-        unlink($cssFolder . '/build.php');
+        unlink($cssFolder.'/build.php');
     }
 
-    private function copyFolder ($source, $dest) {
+    private function copyFolder($source, $dest)
+    {
         foreach ($iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST) as $item) {
             if ($item->isDir()) {
-                mkdir($dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+                mkdir($dest.DIRECTORY_SEPARATOR.$iterator->getSubPathName());
             } else {
-                copy($item, $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+                copy($item, $dest.DIRECTORY_SEPARATOR.$iterator->getSubPathName());
             }
         }
     }
 
-    private function unlinkFolder ($path) {
+    private function unlinkFolder($path)
+    {
         if (is_dir($path) === true) {
             $files = array_diff(scandir($path), array('.', '..'));
             foreach ($files as $file) {
-                $this->unlinkFolder(realpath($path) . '/' . $file);
+                $this->unlinkFolder(realpath($path).'/'.$file);
             }
+
             return rmdir($path);
-        } else if (is_file($path) === true) {
+        } elseif (is_file($path) === true) {
             return unlink($path);
         }
+
         return false;
     }
 }
