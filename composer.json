@@ -6,7 +6,6 @@
         "Form"
     ],
     "license": "MIT",
-    "minimum-stability": "dev",
     "authors": [
         {
             "name"    : "Ryan Mahoney",
@@ -18,10 +17,10 @@
     "require": {
         "php": ">=5.5.0",
         "opine/interfaces": "1.0.0",
-        "opine/db"       : "2.0.0",
+        "opine/db"       : "2.0.1",
         "opine/route"    : "3.0.2",
         "opine/layout"   : "2.0.0",
-        "opine/config"   : "3.0.0",
+        "opine/config"   : "3.0.1",
         "opine/pubsub"   : "2.0.0"
     },
     "require-dev": {
@@ -35,5 +34,5 @@
             "available"
         ]
     },
-    "version": "2.0.0"
+    "version": "2.0.1"
 }
