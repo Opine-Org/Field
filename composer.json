@@ -25,7 +25,7 @@
         "opine/route"    : "3.0.1",
         "opine/layout"   : "dev-master",
         "opine/queue"    : "dev-master",
-        "opine/config"   : "dev-master",
+        "opine/config"   : "3.0.0",
         "opine/pubsub"   : "dev-master",
         "opine/search"   : "dev-master",
         "opine/build"    : "dev-master",
