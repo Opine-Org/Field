@@ -18,10 +18,10 @@
         "php": ">=5.5.0",
         "opine/interfaces": "1.0.1",
         "opine/db"       : "2.0.1",
-        "opine/route"    : "3.0.3",
-        "opine/layout"   : "2.0.1",
+        "opine/route"    : "3.0.4",
+        "opine/layout"   : "2.0.2",
         "opine/config"   : "3.0.2",
-        "opine/pubsub"   : "2.0.1"
+        "opine/pubsub"   : "2.0.2"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.32"
