@@ -20,7 +20,7 @@
         "opine/db"       : "2.0.1",
         "opine/route"    : "3.0.3",
         "opine/layout"   : "2.0.1",
-        "opine/config"   : "3.0.1",
+        "opine/config"   : "3.0.2",
         "opine/pubsub"   : "2.0.1"
     },
     "require-dev": {
